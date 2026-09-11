@@ -1,0 +1,120 @@
+{
+  "_comment": "Central config consumed by every script in kdp-book-launch. Copy this file to your project root as _launch_config.json and fill in the placeholders. Fields marked OPTIONAL can be removed.",
+
+  "title": "BOOK TITLE",
+  "subtitle": "Book subtitle / tagline that goes on cover wrap and PDF metadata",
+  "author": "Author Name",
+  "author_display": "AUTHOR NAME",
+  "publisher": "Publisher (often the author's name for self-pub)",
+  "year": "2026",
+  "language": "en",
+  "isbn": "OPTIONAL - leave blank for KDP-assigned",
+
+  "copyright_text": "Copyright © 2026 Author Name. All rights reserved.\n\nNo part of this book may be reproduced, stored in a retrieval system, or transmitted in any form or by any means — electronic, mechanical, photocopying, recording, or otherwise — without prior written permission of the author, except for brief quotations used in reviews.\n\nThis is a work of fiction. Names, characters, places, and incidents either are the product of the author's imagination or are used fictitiously. Any resemblance to actual persons, living or dead, events, or locales is coincidental.\n\nFirst edition, 2026.",
+
+  "tagline_lines": [
+    "First italic tagline line",
+    "Second italic tagline line",
+    "Third italic tagline line"
+  ],
+
+  "keywords": [
+    "keyword one",
+    "keyword two",
+    "keyword three",
+    "keyword four",
+    "keyword five",
+    "keyword six",
+    "keyword seven"
+  ],
+
+  "bisac_code": "FIC031000",
+
+  "paths": {
+    "manuscript_md": "Manuscript.md",
+    "build_md": "_build_book.md",
+    "prompts_dir": "prompts/chapters",
+    "color_images_dir": "images/chapters",
+    "bw_images_dir": "images/chapters-bw",
+    "ref_images_dir": "ref_images",
+    "covers_dir": "covers",
+    "dist_dir": "dist",
+    "social_dir": "social",
+    "visual_companion_pdf": "visual-companion.pdf"
+  },
+
+  "protagonist": {
+    "_comment": "Used by generate_chapter_images.py to attach a likeness reference. canonical_ref is the single default. strong_refs is the multi-ref override used when one image isn't enough to anchor identity.",
+    "name": "Protagonist Name",
+    "canonical_ref": "ref_images/protagonist1.png",
+    "strong_refs": [
+      "ref_images/protagonist1.png",
+      "ref_images/protagonist2.png",
+      "ref_images/protagonist3.png"
+    ]
+  },
+
+  "chapters": [
+    {
+      "_comment": "ONE ENTRY PER CHAPTER. slug = the filename stem in prompts/ and images/. display_title = what appears in the visual companion PDF and TOC. manuscript_header = the literal H2 line in the manuscript markdown that begins this chapter (used by build_book_md.py to insert the image and promote to H1). has_protagonist = whether to attach the protagonist reference image when generating. use_strong_refs = use the multi-ref bundle instead of canonical_ref for this chapter. custom_refs = override entirely with a different list of images (e.g., for an antagonist POV chapter).",
+      "slug": "ch00-prologue",
+      "display_title": "Prologue",
+      "manuscript_header": "## PROLOGUE",
+      "has_protagonist": false,
+      "use_strong_refs": false,
+      "custom_refs": ["ref_images/antagonist1.png"]
+    },
+    {
+      "slug": "ch01-opening",
+      "display_title": "Chapter 1: The Opening",
+      "manuscript_header": "## CHAPTER 1:",
+      "has_protagonist": true,
+      "use_strong_refs": false
+    },
+    {
+      "slug": "ch02-something",
+      "display_title": "Chapter 2: Something",
+      "manuscript_header": "## CHAPTER 2:",
+      "has_protagonist": true,
+      "use_strong_refs": true
+    }
+  ],
+
+  "cover": {
+    "front_art_path": "covers/front-cover-art.png",
+    "back_art_path": "covers/back-cover-art.png",
+    "front_final_path": "covers/front-cover.jpg",
+    "back_final_path": "covers/back-cover.jpg",
+    "spine": {
+      "title": "BOOK TITLE",
+      "author": "AUTHOR NAME",
+      "color_hex": "#c9a227",
+      "bg_color_top_hex": "#0a0a0f",
+      "bg_color_bottom_hex": "#19120a"
+    }
+  },
+
+  "social": {
+    "_comment": "Hashtags and copy strings used by build_social_pack.py. Edit recipes by editing the script.",
+    "hashtag": "#BookLaunch",
+    "quotes": [
+      "First pull-quote from the book.",
+      "Second pull-quote from the book.",
+      "Third pull-quote from the book."
+    ],
+    "premise": "One-paragraph elevator pitch suitable for a premise card.",
+    "comp_titles_lead": "IF YOU LOVED THE GREAT GATSBY...",
+    "comp_titles_follow": "...{TITLE} will be your next obsession.",
+    "social_proof_quote": "OPTIONAL - blurb attribution for social-proof cards. Remove if no blurbs yet.",
+    "social_proof_source": "Source of blurb"
+  },
+
+  "pdf_metadata": {
+    "title": "BOOK TITLE",
+    "author": "Author Name",
+    "subject": "subtitle / one-line description",
+    "keywords": "keyword1, keyword2, keyword3",
+    "producer": "kdp-book-generator + kdp-book-launch",
+    "creator": "Author Name"
+  }
+}

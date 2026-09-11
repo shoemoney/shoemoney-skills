@@ -1,0 +1,167 @@
+# KDP Listing — {BOOK TITLE}
+
+Copy-paste blocks for the Amazon KDP "Book Details" and related screens.
+HTML tags supported by KDP: `<b> <i> <u> <h4> <h5> <h6> <br> <p> <ul>
+<ol> <li>`. Each block is under KDP's character limits.
+
+---
+
+## TITLE FIELDS
+
+| Field | Value |
+|-------|-------|
+| **Book title** | `{TITLE}` |
+| **Subtitle** | `{SUBTITLE / TAGLINE}` |
+| **Series name** | *(leave blank for standalone or first-in-series until book 2 ships)* |
+| **Edition number** | `1` |
+| **Author** | `{AUTHOR}` |
+
+---
+
+## BOOK DESCRIPTION (4,000 char max)
+
+Paste into the "Description" field on KDP. Target length: 2,500-3,500 chars
+including HTML. Structure:
+
+1. One-line author credibility hook (italic h5 of past credentials)
+2. ALL-CAPS hero tagline (the line you want on a Times Square billboard)
+3. Two short paragraphs establishing the protagonist and the stakes
+4. One sentence summarizing the world (geography, antagonist, premise)
+5. Two-sentence escalation paragraph (the threat)
+6. Pull-quoted gut-punch line
+7. Comp-titles list ("Perfect for fans of: ...")
+8. Closing emotional hook
+
+```html
+<h4>{Optional author credibility — past bestselling work, awards, "Most X by Y", etc.}</h4>
+
+<h5>"{Optional notable quote about the author}" — <i>{Source}</i></h5>
+
+<p><b>{ALL-CAPS HERO TAGLINE.}</b></p>
+
+<p>{Open with one concrete sentence that drops the reader into the
+protagonist's normal life. End with the inciting incident.}</p>
+
+<p>{Establish who the protagonist is in two sentences. End with the
+"is not the man you send to do this — which is exactly why..."
+turn that sets up why THIS protagonist is the right one.}</p>
+
+<p><b>{Until now. / But this time. / Two-word tilt sentence.}</b></p>
+
+<p>{One sentence that names the world / antagonist / geography / scope.
+Should make the reader feel the size of the book.}</p>
+
+<p>{Two-sentence escalation. End with leverage on something the reader
+cares about — kids, a deadline, a betrayal.}</p>
+
+<p><b>{Three-beat tagline, e.g., "Four pieces of proof. Four cities.
+One impossible truth."}</b></p>
+
+<p>{One closing sentence that names the stakes in concrete time —
+"And forty-eight hours to live." / "And the fight starts at dawn."}</p>
+
+<h5>Perfect for fans of:</h5>
+<ul>
+<li>{COMP AUTHOR}'s <i>{COMP TITLE}</i></li>
+<li>{COMP AUTHOR}'s <i>{COMP TITLE}</i></li>
+<li>{COMP AUTHOR}'s <i>{COMP TITLE}</i></li>
+</ul>
+
+<p><b>{Final gut-punch line — the one quote you want on the back cover.}</b></p>
+
+<p><i>{Closing italic — "The hunt begins." / "The reckoning starts here." / "Read at your own risk."}</i></p>
+```
+
+---
+
+## ABOUT THE AUTHOR (2,400 char max)
+
+```html
+<p><b>{AUTHOR NAME}</b> is a {one-line credibility headline}.</p>
+
+<p>{Two-sentence biography of past credentials, books, work.}</p>
+
+<p>{Two sentences of relevant personal detail — where they live,
+family, what their writing comes out of.}</p>
+
+<p><i>{TITLE}</i> is {their first novel / their Nth book in the X
+series / their debut in a new genre}.</p>
+```
+
+---
+
+## FROM THE AUTHOR (optional — 4,000 char field)
+
+A personal note from the author. 1,000-2,000 chars. Conversational
+register. Should sound like a letter to the reader, not a marketing
+blurb.
+
+```html
+<p>{Personal opening — why this book, why now, what life-event or
+fascination got it started.}</p>
+
+<p>{Middle — what it was like writing this, what surprised you,
+what you hope a reader takes away.}</p>
+
+<p>{Close — invite the reader in. "If you've ever stayed up past
+midnight because you 'just had to finish one more chapter' — welcome
+home."}</p>
+```
+
+---
+
+## 7 KEYWORDS (KDP backend search terms)
+
+Keep each <= 50 chars. Don't repeat the title or author name (KDP indexes
+those automatically). Mix one-word terms and three-word phrases.
+
+1. `{keyword 1}`
+2. `{keyword 2}`
+3. `{keyword 3}`
+4. `{keyword 4}`
+5. `{keyword 5}`
+6. `{keyword 6}`
+7. `{keyword 7}`
+
+---
+
+## 2 BISAC CATEGORIES
+
+KDP lets you choose 2 BISAC subject codes plus 10 (paid) browse-path
+categories.
+
+- Primary BISAC: `{CODE — e.g., FIC031000 = Fiction / Thrillers / General}`
+- Secondary BISAC: `{CODE — e.g., FIC042000 = Fiction / Christian / Suspense}`
+
+Recommended browse paths (request via KDP support):
+- Books › {category path}
+- Kindle eBooks › {category path}
+
+---
+
+## PRICING (your call — these are common patterns)
+
+| Format | Price | Royalty |
+|--------|-------|---------|
+| Kindle eBook | $4.99 - $6.99 | 70% (USD $2.99-$9.99 range) |
+| Paperback | $12.99 - $17.99 | 60% minus printing cost |
+| Hardcover | $24.99 - $29.99 | 60% minus printing cost |
+
+KDP shows you the actual royalty before you publish. Color paperback
+interior multiplies your printing cost ~3x — keep cover-paper / B&W
+interior for thrillers and most fiction to keep the price reasonable.
+
+---
+
+## A+ CONTENT MODULES (KDP Author Central)
+
+A+ Content is the rich-media area below the listing. KDP allows up to
+7 modules. Suggested modules:
+
+1. Hero banner with cover + tagline
+2. "From the back cover" three-paragraph block with chapter art
+3. About-the-author photo + bio paragraph
+4. "If you loved X" comp-title grid
+5. Newsletter signup CTA (link to your subscriber landing page)
+6. Map / artifact image with caption (if your book has one)
+7. Series tease (only after book 2 announced)

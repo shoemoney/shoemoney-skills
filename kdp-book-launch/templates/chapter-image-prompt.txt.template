@@ -1,0 +1,44 @@
+A cinematic chapter illustration for a {GENRE} novel.
+Vertical portrait orientation, 2:3 aspect ratio.
+
+SUBJECT — IDENTITY IS CRITICAL: The {PERSON_DESCRIPTOR} in this image MUST be
+the exact same person as the {PERSON_DESCRIPTOR} shown in the attached
+reference image. This is {PROTAGONIST_NAME}, the book's {ROLE}. Preserve
+{PRONOUN_POSSESSIVE} identity precisely: {DISTINGUISHING_PHYSICAL_FEATURES}
+(e.g., completely bald head, fair skin, blue eyes, mid-40s, broad-
+shouldered solid build). Do not generate a generic {GENERIC_DESCRIPTOR}.
+Do not slim {PRONOUN_OBJECT} down or change {PRONOUN_POSSESSIVE} features.
+This is a portrait of a specific real person and {PRONOUN_POSSESSIVE} face
+must be recognizable.
+
+SCENE: Chapter N, "{CHAPTER_TITLE}." {LOCATION}, {DATE}. {DESCRIBE THE
+PROTAGONIST'S POSITION, ACTION, AND THE IMMEDIATE SETTING IN 4-6
+SENTENCES. INCLUDE PHYSICAL DETAILS — WHAT THEY HOLD, WEAR, LOOK AT.
+INCLUDE ONE EMOTIONAL HINT (grief, fear, recognition, calm) WITHOUT
+TELLING THE MODEL HOW THEY FEEL — SHOW IT THROUGH POSTURE OR
+EXPRESSION.}
+
+LIGHTING: {ONE DOMINANT SOURCE — moonlight, lamp, fire, dawn through
+window. WARM OR COLD. ANY PRACTICAL LIGHT THE SCENE JUSTIFIES.} {DEEP
+SHADOW IN THE OPPOSITE REGION.} {ONE-SENTENCE LIGHTING REFERENCE — e.g.,
+"Roger Deakins low-key interior cinematography."} {EXPLICITLY STATE: face
+must be clearly lit and recognizable.}
+
+COMPOSITION: {SUBJECT IN LEFT THIRD / RIGHT THIRD / CENTER. RESERVE WHICH
+THIRD FOR POTENTIAL CHAPTER TITLE OVERLAY (DARKER, QUIETER). SHALLOW
+DEPTH OF FIELD — what's in sharp focus, what falls into bokeh. CAMERA
+HEIGHT AND ANGLE.}
+
+NEGATIVE: No text, no letters, no signage, no logos, no on-image
+typography, no readable inscriptions, no graffiti. No HDR. Photorealistic.
+Subtle film grain.
+
+STYLE: {GENRE-APPROPRIATE FILM/PHOTO REFERENCES — three named films or
+photographers whose lighting and tone you want to evoke. E.g., for a
+religious thriller: "The Da Vinci Code (2006) artifact-discovery
+interiors, Spotlight (2015) office lighting, Knives Out (2019) study-
+room warmth." For a memoir: "Annie Leibovitz portrait restraint, Walker
+Evans Depression-era documentary, Vivian Maier street." For fantasy:
+"Roger Deakins Blade Runner 2049, Caravaggio chiaroscuro, Lord of the
+Rings (2001) Rivendell interiors."} The mood is {ONE-LINE THEMATIC
+ANCHOR — what the picture should make the reader feel}.

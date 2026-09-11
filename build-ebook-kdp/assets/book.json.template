@@ -1,0 +1,59 @@
+{
+  "_comment": "One config drives every script. Copy to ./book.json and fill in.",
+
+  "title":       "THE BOOK TITLE",
+  "title_lines": ["THE BOOK", "TITLE"],
+  "subtitle":    "A Subtitle Here.",
+  "author":      "Author Name",
+  "year":        "2026",
+  "keywords":    ["keyword one", "keyword two"],
+
+  "manuscript":  "Manuscript.docx",
+  "art": { "front": "front cover.png", "back": "back cover.png" },
+
+  "trim":   [6.0, 9.0],
+  "paper":  "cream",
+  "dpi":    300,
+  "bindings": {
+    "paperback": {},
+    "hardcover": {
+      "_note": "spine_width_in is fetched from KDP's calculator automatically; set it here only to override"
+    }
+  },
+
+  "type":    { "body_pt": 11.5, "leading": 1.68 },
+  "margins": { "top": 0.78, "bottom": 0.72, "side": 0.75, "mirror_shift": 0.0625 },
+
+  "palette": {
+    "navy":  "#041C46",
+    "gold":  "#A16F16",
+    "cream": "#F4F1ED",
+    "ink":   "#1A1A1E",
+    "white": "#FFFFFF"
+  },
+  "fonts": {
+    "body":           "Lora",
+    "display":        "Oswald",
+    "sans":           "SourceSans3",
+    "office_body":    "Georgia",
+    "office_display": "Arial Narrow"
+  },
+
+  "notes_pages": true,
+  "note_prompts": [
+    "One reflection prompt per chapter, in order. Leave empty to use a generic prompt."
+  ],
+
+  "back_cover": {
+    "headline": "The hook question or line.",
+    "body":     "The main blurb paragraph.",
+    "kicker":   "A one-line punch in the accent colour.",
+    "bar_label": "IN THIS BOOK, YOU'LL LEARN HOW TO:",
+    "bullets":  ["Benefit one", "Benefit two", "Benefit three"],
+    "author_bio": "Short third-person bio for the author box.",
+    "author_quote": "A closing pull quote.\nSecond line."
+  },
+
+  "dist": "dist",
+  "work": "build"
+}

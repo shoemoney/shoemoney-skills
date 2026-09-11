@@ -1,0 +1,25 @@
+# Architecture, durability, and recovery
+
+## Start with access patterns and failure requirements
+
+Map the workload: transactional reads/writes, analytical scans, hot versus historical data, concurrency, retention, consistency, and recovery objectives. Establish the actual storage engine for each table. InnoDB is a common transactional choice; analytical or specialized engines have different capabilities and operational requirements. Compare engine changes against improving queries, indexes, layout, or retention first. [Storage engines](https://mariadb.com/docs/server/server-usage/storage-engines/storage-engines-storage-engines-overview)
+
+Separate primary transaction traffic, long reporting queries, background jobs, and connection limits where the workload warrants it. Read replicas can offload eligible reads, but replication lag changes read-after-write behavior. Route consistency-sensitive reads deliberately. Measure apply capacity and lag during bursts and maintenance; replicas do not turn one write stream into unlimited write throughput. [Replication overview](https://mariadb.com/docs/server/ha-and-performance/standard-replication/replication-overview)
+
+Partitioning, sharding, and Galera solve different problems. Partition only when pruning or lifecycle management justifies its schema restrictions. Sharding adds routing and cross-shard integrity/transaction costs. Galera adds certification, quorum, flow-control, and schema-rollout considerations; it is not a substitute for workload measurements or backups. For a real Galera assignment, load current cluster documentation and applicable operational skills before specifying topology or settings. [Partition limitations](https://mariadb.com/docs/server/server-usage/partitioning-tables/partitioning-limitations), [Galera documentation](https://mariadb.com/docs/galera-cluster)
+
+## State durability assumptions
+
+For traditional binlogging with InnoDB, evaluate the usual durable configuration of `innodb_flush_log_at_trx_commit=1` and `sync_binlog=1`, along with actual storage guarantees. Relaxing flush settings changes which acknowledged transactions survive a failure. Timed flushing is not a guaranteed maximum one-second loss window under every condition. A setting that raises throughput by losing committed data under failure changes behavior, not just speed. [InnoDB variables](https://mariadb.com/docs/server/server-usage/storage-engines/innodb/innodb-system-variables)
+
+MariaDB 12.3 adds an InnoDB-based binary log. Verify the actual `binlog_storage_engine`: this mode ignores `sync_binlog` and uses GTID-only positioning. Backup tooling, log handling, and upgrade sequencing differ; replicas need compatible versions before conversion. Events can span `.ibb` files, so decoding may require related files together in order. Relaxed InnoDB flushing can still lose recent committed work even though engine and binlog remain consistent. Treat switching formats as an architecture migration with recovery testing. [InnoDB-based binary log](https://mariadb.com/docs/server/server-management/server-monitoring-logs/binary-log/innodb-based-binary-log)
+
+## Make recovery demonstrable
+
+Choose backups around the required recovery point and recovery time, data size, engine support, encryption, and topology. Physical MariaDB Backup output needs the appropriate preparation process before restoration. Match backup-tool compatibility to the server and rehearse restoration into an isolated target. A successful backup command or copied data directory does not establish recoverability. Keep recovery credentials/keys and procedure accessible through the user's authorized secret-management process. [Backup and restore](https://mariadb.com/docs/server/server-usage/backup-and-restore/backup-and-restore-overview)
+
+Point-in-time recovery needs a compatible base backup and the necessary subsequent binary logs, with correct starting coordinates and a chosen recovery endpoint. Retention must cover restore needs and replica consumption. Test replay and application invariants, including the treatment of unwanted transactions. Adapt procedures to the active binlog format and tool version. A replica can reproduce an accidental deletion, so replication does not replace independent recovery history. [PITR with MariaDB Backup](https://mariadb.com/docs/server/server-usage/backup-and-restore/mariadb-backup/point-in-time-recovery-pitr-mariadb-backup), [InnoDB-based binlog](https://mariadb.com/docs/server/server-management/server-monitoring-logs/binary-log/innodb-based-binary-log)
+
+## Upgrade by evidence
+
+Use a supported series appropriate to application and vendor constraints. Inspect the release notes, removed/deprecated variables, client/backup compatibility, replication upgrade order, collation effects, and representative query plans before upgrading. Maintain a tested recovery path; downgrade after data-format changes is not automatically safe. Use the dated [source map](sources.md) as a research starting point, then refresh release and support information for the actual decision date.

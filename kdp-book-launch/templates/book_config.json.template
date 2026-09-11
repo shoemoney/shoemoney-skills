@@ -1,0 +1,79 @@
+{
+  "_comment": "Configuration for kdp-book-generator (the Node CLI that builds EPUB/PDF). Distinct from _launch_config.json which configures the launch scripts. Copy this to your project root as _book_config.json and edit. kdp-book-generator reads it automatically when invoked from the project root.",
+
+  "title": "BOOK TITLE",
+  "subtitle": "One-line subtitle / tagline",
+  "author": "Author Name",
+  "publisher": "Publisher Name",
+  "language": "en",
+  "subject": "FIC031000",
+  "keywords": [
+    "keyword one",
+    "keyword two",
+    "keyword three"
+  ],
+  "format": {
+    "name": "6\" x 9\"",
+    "width": 6,
+    "height": 9,
+    "unit": "in"
+  },
+  "margins": {
+    "top": 0.625,
+    "bottom": 0.625,
+    "inside": 0.875,
+    "outside": 0.625,
+    "unit": "in"
+  },
+  "typography": {
+    "body": {
+      "family": "EB Garamond",
+      "size": 11,
+      "lineHeight": 1.45,
+      "weight": "normal",
+      "style": "normal",
+      "color": "#000000",
+      "marginTop": 0,
+      "marginBottom": 8
+    },
+    "heading1": {
+      "family": "EB Garamond",
+      "size": 26,
+      "lineHeight": 1.25,
+      "weight": "bold",
+      "style": "normal",
+      "color": "#000000",
+      "marginTop": 48,
+      "marginBottom": 24
+    },
+    "heading2": {
+      "family": "EB Garamond",
+      "size": 16,
+      "lineHeight": 1.3,
+      "weight": "bold",
+      "style": "normal",
+      "color": "#000000",
+      "marginTop": 28,
+      "marginBottom": 14
+    },
+    "heading3": {
+      "family": "EB Garamond",
+      "size": 13,
+      "lineHeight": 1.3,
+      "weight": "bold",
+      "style": "italic",
+      "color": "#000000",
+      "marginTop": 22,
+      "marginBottom": 10
+    }
+  },
+  "pageNumbers": {
+    "enabled": true,
+    "startPage": 1,
+    "format": "decimal",
+    "position": "footer",
+    "alignment": "center"
+  },
+  "tableOfContents": true,
+  "bleed": false
+}

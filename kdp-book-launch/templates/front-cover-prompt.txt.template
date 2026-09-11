@@ -1,0 +1,52 @@
+A book FRONT-cover photograph in vertical portrait orientation,
+2:3 aspect ratio, suitable for a {TRIM_SIZE} (e.g., 6x9 inch) trade
+paperback front cover of a {GENRE} in the vein of {COMP_TITLE_1},
+{COMP_TITLE_2}, and {COMP_TITLE_3}.
+
+SUBJECT — IDENTITY IS CRITICAL: The {DESCRIPTOR} in this photograph
+MUST be the exact same person shown in ALL the attached reference
+images. This is the book's {ROLE_NAME, e.g., author and protagonist},
+{PROTAGONIST_NAME}. Preserve {PRONOUN_POSSESSIVE} identity precisely:
+{DISTINGUISHING_FEATURES — list 4-6 specific traits, e.g., completely
+bald head, fair skin, blue eyes, the same facial structure visible
+across every reference photo. Broad-shouldered, solid build, mid-40s
+but looks younger.} Do not generate a generic {GENERIC_DESCRIPTOR}.
+Do not slim {PRONOUN_OBJECT} down, do not add hair (if bald), do not
+change {PRONOUN_POSSESSIVE} features. The goal is recognizable likeness
+— the buyer should look at this cover and see a specific real
+{PERSON_TYPE}, not a stock {GENRE_PROTAGONIST_TYPE}.
+
+SCENE: {PROTAGONIST_NAME} {KEY ACTION OR POSE THAT EXPRESSES THE BOOK'S
+PREMISE IN ONE IMAGE — e.g., "mid-flight at night through a cathedral
+cloister, clutching an ancient artifact" or "alone at a podium in an
+empty conference room, suit jacket draped over a chair, looking at the
+floor like he's just delivered a speech that ended his career"}. {ONE-
+SENTENCE ENVIRONMENT DESCRIPTION.} {WHAT THE PROTAGONIST WEARS — match
+to wardrobe palette you want carried across all promo art.} {ONE
+DETAIL ABOUT IMPLIED THREAT / TENSION / AFTERMATH — what the cover
+promises emotionally.}
+
+LIGHTING: {ONE DOMINANT LIGHT SOURCE.} {CHIAROSCURO INSTRUCTION — strong
+key, deep shadow.} {EXPLICITLY: face must be clearly lit and
+recognizable; do not hide identity in shadow.} {ONE LIGHTING REFERENCE
+— a named DP, painter, or film.}
+
+COMPOSITION — CRITICAL FOR TYPOGRAPHY: Subject placed in the {WHICH
+PART} of the frame. The {OPPOSITE PART OR TOP THIRD} of the frame must
+be mostly negative space — {WHAT FILLS THAT SPACE: dark sky, blurred
+wall, soft shadow} — quiet enough to overlay large "{TITLE}" title
+type later. {OPTIONAL: ANOTHER QUIET ZONE FOR AUTHOR CREDIT.} Frame
+height taller than width (2:3 portrait). Camera roughly {HEIGHT, ANGLE}.
+Shallow depth of field — {WHAT'S SHARP, WHAT'S SOFT}.
+
+MOOD: {ONE PARAGRAPH OF EMOTIONAL DESCRIPTION — what the cover should
+make a browser feel in the first three seconds. The kind of cover that
+makes a reader pick the book up off the airport bookstore table.}
+
+CRITICAL: Do NOT generate any text, words, letters, logos, signage,
+typography, readable inscriptions, or engraved/printed words anywhere
+in the image. Leave clean negative space across the {WHICH ZONES} for
+typography in post.
+
+Style references: {THREE TO FIVE NAMED FILMS / POSTERS / PHOTOGRAPHERS}.
+Subtle grain. No HDR look. Photorealistic. Cover-grade, not snapshot.

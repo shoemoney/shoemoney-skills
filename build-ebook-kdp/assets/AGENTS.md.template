@@ -1,0 +1,293 @@
+# AGENTS.md — orientation for an AI assistant working on this book
+
+You are looking at the finished output for **{TITLE}** by
+{AUTHOR}, built for Amazon KDP. This file explains what is here, how it was made,
+and how to change it when something is wrong.
+
+Read this before editing anything. Several tools in this pipeline report success
+while producing silently wrong output, and the workarounds are not obvious.
+
+---
+
+## 1. What this folder is
+
+| Path | What it is | Uploaded to KDP? |
+|---|---|---|
+| `READ_ME_FIRST.TXT` | Plain-English guide for the author | no |
+| `UPLOAD_THESE/1_PAPERBACK/` | Paperback interior + cover wrap | **yes** |
+| `UPLOAD_THESE/2_HARDCOVER/` | Hardcover interior + cover wrap | **yes** |
+| `UPLOAD_THESE/3_KINDLE_EBOOK/` | EPUB + ebook cover JPG | **yes** (EPUB only) |
+| `UPLOAD_THESE/3_KINDLE_EBOOK/EXTRA_for-device-proofing/` | AZW3 / MOBI | **no** — sideload only |
+| `CONTENT_TO_PASTE/` | Listing copy, one file per KDP form field | pasted, not uploaded |
+| `PROOFS/` | Cover proofs with trim/safe/barcode guides | no |
+| `EDITABLE_SOURCE/` | Formatted `.docx` and `.odt` | **no** — for editing only |
+| `scripts/` | Everything needed to rebuild all of the above | no |
+
+### Book facts you must not get wrong
+
+```
+Trim ............ {TRIM}
+Pages ........... {PAGES}  (print PDF; the DOCX/ODT differ - see §6)
+Paper ........... {PAPER}
+Paperback spine . {PB_SPINE} in
+Hardcover spine . {HC_SPINE} in
+Hardcover panel . {HC_PANEL}  (boards overhang the text block)
+Hardcover hinge . {HC_HINGE} in each side of the spine, must stay clear of text
+```
+
+**Page count drives spine width drives the cover.** If you change anything that
+alters the page count, the covers are invalid until rebuilt. This is the single
+most likely way to ruin this job.
+
+---
+
+## 2. Where the scripts are and how to run them
+
+Everything lives in `scripts/`, which is a self-contained clone of the working
+directory. It has been tested from a cold start and reproduces this output
+byte-for-byte in structure.
+
+```
+scripts/
+├── book.json                     the config: metadata, palette, paths, listing copy
+├── front cover.png               source art (8.5 x 11, 432 dpi)
+├── back cover.png                source art
+├── {MANUSCRIPT}   the original manuscript
+└── build/
+    ├── all.sh                    3-pass interior PDF build
+    ├── build_everything.sh       full rebuild of every format
+    ├── topdf.sh                  HTML -> headless Chrome -> PDF
+    ├── extract.py  model.py      manuscript .docx -> structured book.json
+    ├── typo.py                   curly quotes, em dashes, ellipses
+    ├── render_html.py            book structure -> print HTML
+    ├── paginate.py               forces chapter openers onto right-hand pages
+    ├── finalize.py               folios, running heads, epigraphs, mirrored margins
+    ├── cover.py                  front / back / spine / wrap / ebook cover / proofs
+    ├── epub_build.py             EPUB 3
+    ├── docx_build.py odt_build.py   editable formats
+    ├── kdp_calculator.py         queries KDP for real cover geometry
+    ├── package_kdp.py            builds UPLOAD_THESE/, PROOFS/, root README
+    ├── write_listing.py          builds CONTENT_TO_PASTE/
+    ├── verify.py                 post-build assertions
+    ├── fonts.py                  re-download/instance the type family
+    ├── fonts/static/*.ttf        Lora, Oswald, Source Sans 3 static instances
+    └── *.json                    derived intermediates (see §5)
+```
+
+### Running it
+
+```bash
+cd scripts
+
+# full rebuild, everything
+PY=python3 ./build/build_everything.sh
+
+# just the interior PDF (3 passes: pagination -> TOC page numbers -> final)
+PY=python3 ./build/all.sh
+
+# just the covers (both bindings)
+python3 build/cover.py
+
+# repackage the handover folders
+python3 build/package_kdp.py --pages {PAGES}
+python3 build/write_listing.py
+```
+
+`PY` overrides the interpreter; `CHROME` overrides the Chrome binary in
+`topdf.sh`. Output lands in `scripts/dist/` — copy files up one level when you
+are satisfied, do not let a half-finished rebuild overwrite the shipped folders.
+
+### Dependencies
+
+```bash
+pip install python-docx pypdf pillow reportlab fonttools pypdfium2
+brew install --cask calibre libreoffice        # ebook-convert, soffice
+brew install pandoc imagemagick epubcheck
+```
+
+Google Chrome is required for the print PDF. There is no LaTeX in this pipeline.
+
+---
+
+## 3. How the interior is built (and why it looks over-engineered)
+
+`render_html.py` → Chrome → `paginate.py` → `finalize.py`.
+
+The pagination is deliberately **not** done in CSS. Chromium ignores
+`break-before: left` entirely and treats page 1 as a left page, so
+`break-before: right` puts chapter openers on **even** pages. Rather than fight
+it, the HTML emits plain `page-break-before: always` and recto placement is
+forced at the PDF layer, where real page indices are known.
+
+To locate openers after rendering, each one carries an invisible marker
+(`[[OP:ch-3]]`, white, 2pt, absolutely positioned). The build renders **twice** —
+once with markers to learn the pagination, once without for the shipping file —
+and asserts both raw renders have the same page count. Then blanks are inserted
+before any opener that landed on an even page.
+
+The blank pages this creates are not wasted: `finalize.py` stamps a pull-quote
+from the upcoming chapter onto each one.
+
+Table-of-contents page numbers come from the **rendered** PDF, which is why there
+are three passes: render → read page numbers → re-render with numbers filled in.
+
+---
+
+## 4. How the covers are built
+
+<!-- REWRITE THIS SECTION PER BOOK. Record the actual
+     decisions taken: which edge the front was cropped from and why, whether the
+     back cover was scaled or redrawn, the photo crop coordinates, and anything
+     that was wrong in the supplied art. A future agent will otherwise undo them. -->
+
+**Never hand-calculate hardcover spine width.** KDP publishes the paperback
+formula (`pages x caliper`) but deliberately does not publish one for hardcover.
+`kdp_calculator.py` queries KDP's own Cover Calculator:
+
+```bash
+python3 build/kdp_calculator.py --binding hardcover --trim 6x9 --pages {PAGES} --paper cream
+```
+
+It caches to `.kdp_cover_cache.json` and self-checks that panels + spine
+reconstruct the full cover width. `cover.py` drives every dimension from that
+result, so a page-count change automatically produces correct geometry.
+
+The **front cover** is the original art cropped to the panel aspect — the crop is
+taken entirely off the *right* edge (blurred background) because the title block
+lives on the left. This was checked visually against three candidate offsets; do
+not recentre it.
+
+The **back cover is redrawn from scratch** in `cover.py`, not scaled. The
+original art was designed at 8.5 x 11; squeezed into 6 x 9 the body copy fell to
+~7pt and collided with the barcode reserve. It is re-set in Oswald + Source Sans
+against the sampled brand palette, reusing the real author photo cropped from
+`back cover.png` at pixel coords `(556, 4012, 960, 4608)`.
+
+The **spine was rebuilt**, not reused. `spine.png` in the original assets was a
+mockup at the wrong aspect ratio, and its author name read "JULIE NEIL" — one L.
+The rebuilt spine is spelled correctly and sizes its type from the available safe
+band rather than a fixed guess.
+
+---
+
+## 5. Derived files in `scripts/build/`
+
+These are intermediates. Safe to delete; they regenerate.
+
+| File | Produced by | Contains |
+|---|---|---|
+| `paras.json` | `extract.py` | every paragraph of the source .docx with size/bold/centre flags |
+| `book.json` | `model.py` | the canonical book structure (chapters, blocks, front/back matter) |
+| `prompts.json` | build | the per-chapter reflection prompts used on notes pages |
+| `pagenos.json` | `paginate.py` | opener name → final page number (feeds the TOC) |
+| `inserts.json` | `paginate.py` | where blanks were inserted (feeds the epigraph pages) |
+
+Note the name collision: `scripts/book.json` is the **KDP config**;
+`scripts/build/book.json` is the **manuscript structure**. Different files.
+
+---
+
+## 6. Common problems and what to change
+
+**"The author edited the manuscript."**
+Replace the .docx in `scripts/`, update `manuscript` in `book.json`, then rerun
+`build_everything.sh`. **Check the new page count.** If it changed, the covers are
+invalid — `cover.py` will pick up new geometry automatically, but you must rerun
+it and rerun `package_kdp.py --pages <new count>`.
+
+**"The chapter classification is wrong / a heading was treated as body text."**
+`model.py` classifies by font size and boldness from the source .docx
+(size 30 + bold + centred = chapter; 26 + bold = subhead). It also hardcodes
+paragraph indices for the front and back matter (`FRONT_SKIP`, `GRATITUDE`,
+`BACK_ONE_MORE`, `BACK_AUTHOR`). A different manuscript will need these adjusted.
+Run `python3 build/model.py` and read the printed chapter table before trusting it.
+
+**"The page count needs to change."**
+Body type size and leading are in `render_html.py` (`font-size`, `line-height` on
+`body`). This is how the book went from 34 to 100 pages: larger type, recto-only
+chapter starts, a notes page per chapter, pull-quote pages. Do not pad with
+filler a reader will notice.
+
+**"KDP rejected the interior."**
+Run `python3 build/verify.py <pdf> --expect-trim {TRIM_CODE} --expect-even`. It checks
+trim, page parity, font embedding, Type3 fonts and recto openers. The usual
+culprits are a non-embedded font (see §7) or a Type3 font from a missing glyph.
+
+**"The spine text is off-centre / wrapping onto the front."**
+Almost always paper colour. Cream is 0.0025 in/page, white 0.002252 — an 11%
+difference. Confirm `paper` in `book.json` matches what is selected on KDP.
+
+**"The back cover copy needs to change."**
+`BACK_COPY` at the top of `build_back()` in `cover.py`. The layout is measured,
+not absolute — it flows top-down with explicit gaps and the author box fills the
+remaining space down to the barcode reserve. If you add copy, something else has
+to shrink; the script prints the y-positions of the star divider and author box
+so you can see what is running out of room.
+
+**"The listing copy needs changing."**
+`listing` in `scripts/book.json`, then rerun `write_listing.py`. Only use claims
+that appear in the author's own manuscript or cover copy — descriptions are where
+invented credentials creep in.
+
+---
+
+## 7. Traps that report success while producing wrong output
+
+Every one of these cost real debugging time. If something looks inexplicable,
+check here first.
+
+- **Chromium print CSS:** `break-before: right` lands on even pages; `left` is a
+  no-op. See §3.
+- **A block whose height equals the page box, plus `page-break-after`, emits a
+  phantom blank page.** Let natural height drive full-page elements.
+- **Justified text needs `<html lang="en">`** or Chrome will not hyphenate.
+- **A missing glyph becomes a Type3 font.** A `★` the display face lacks made
+  Chrome synthesise one; it was replaced with a drawn rule.
+- **reportlab declares an unused, non-embedded `/F1 Helvetica` on every page.**
+  Pass `initialFontName=<a registered TTF>` or font audits fail on a file whose
+  visible text is fully embedded.
+- **LibreOffice's PDF export silently drops auto-inserted blank pages.** This made
+  correct recto placement *look* broken. Always export with
+  `'pdf:writer_pdf_Export:{"IsSkipEmptyPages":{"type":"boolean","value":"false"}}'`.
+- **ODF `style:page-usage="right"` disables `<style:header-left>`**, leaking the
+  chapter title onto versos. Fixed with two master pages chained by
+  `style:next-style-name`.
+- **python-docx:** `"Book Title"` is a builtin *character* style — adding it
+  returns something with no `paragraph_format`. Custom styles are prefixed `OCS`.
+
+---
+
+## 8. Verify before handing anything back
+
+```bash
+python3 build/verify.py dist/.../INTERIOR.pdf --expect-trim {TRIM_CODE} --expect-even --expect-pages {PAGES}
+python3 build/verify.py dist/.../COVER_hardcover.pdf --expect-size {HC_SIZE}
+python3 build/verify.py dist/.../COVER_paperback.pdf --expect-size {PB_SIZE}
+epubcheck dist/.../Book.epub          # require 0 errors AND 0 warnings
+```
+
+Then **render pages to images and look at them.** Title page, contents, a chapter
+opener, a body spread, the back matter, and both cover proofs. Structural checks
+passing is not the same as the book being right — most of the bugs in §7 pass
+every automated check.
+
+```python
+import pypdfium2 as pdfium
+d = pdfium.PdfDocument("interior.pdf")
+d[14].render(scale=1.5).to_pil().save("/tmp/p15.png")
+```
+
+---
+
+## 9. Things a human must decide, not you
+
+<!-- REWRITE PER BOOK: list every change made to the
+     author's own words, and every unsourced claim you noticed. -->
+
+- Cutting or rewriting any of the author's words. One duplicated paragraph was
+  removed from the back cover to make it fit at 6 x 9 — that was raised
+  explicitly, not done quietly. Do the same.
+- Paper colour, trim size, pricing, categories.
+- Anything that changes the page count, because it invalidates the covers.
+- An unsourced statistic in Chapter 2 ("open rates as low as 9 percent… SMS 98
+  percent") has no citation in the manuscript. Flag it; do not invent a source.

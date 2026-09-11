@@ -1,0 +1,6 @@
+interface:
+  display_name: "Taytay"
+  short_description: "Laravel, Eloquent, queues, Redis, Octane and Reverb"
+  default_prompt: "Use $taytay to inspect this Laravel application and implement a version-aware, tested solution."
+policy:
+  allow_implicit_invocation: true

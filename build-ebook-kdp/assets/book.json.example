@@ -1,0 +1,76 @@
+{
+  "title": "The One Call Salesperson",
+  "title_display": "The One Call Salesperson",
+  "title_lines": [
+    "THE ONE CALL",
+    "SALESPERSON"
+  ],
+  "subtitle": "Stop Selling. Start Listening.",
+  "author": "Julie Neill",
+  "year": "2026",
+  "slug": "OneCallSalesperson",
+  "manuscript": "The_One_Call_Salesperson_FINAL_MASTER(1).docx",
+  "art": {
+    "front": "front cover.png",
+    "back": "back cover.png"
+  },
+  "trim": [
+    6.0,
+    9.0
+  ],
+  "paper": "cream",
+  "dpi": 300,
+  "bindings": {
+    "paperback": {},
+    "hardcover": {}
+  },
+  "built": {
+    "interior": "dist/1_PAPERBACK/OneCallSalesperson_Interior_6x9_100pg.pdf",
+    "paperback_interior": "dist/1_PAPERBACK/OneCallSalesperson_Interior_6x9_100pg.pdf",
+    "paperback_cover": "dist/1_PAPERBACK/OneCallSalesperson_CoverWrap_6x9_paperback_100pg.pdf",
+    "hardcover_interior": "dist/1b_HARDCOVER/OneCallSalesperson_Interior_6x9_100pg.pdf",
+    "hardcover_cover": "dist/1b_HARDCOVER/OneCallSalesperson_CoverWrap_6x9_hardcover_100pg.pdf",
+    "epub": "dist/2_KINDLE/OneCallSalesperson_Kindle.epub",
+    "azw3": "dist/2_KINDLE/OneCallSalesperson_Kindle.azw3",
+    "mobi": "dist/2_KINDLE/OneCallSalesperson_Kindle.mobi",
+    "ebook_cover": "dist/2_KINDLE/OneCallSalesperson_EbookCover_1600x2560.jpg",
+    "proofs": {
+      "dist/4_COVER_PARTS/_PROOF_paperback_100pg.png": "PROOF_paperback_cover_with_guides.png",
+      "dist/4_COVER_PARTS/_PROOF_hardcover_100pg.png": "PROOF_hardcover_cover_with_guides.png",
+      "dist/4_COVER_PARTS/front_paperback_100pg.png": "front-cover_paperback.png",
+      "dist/4_COVER_PARTS/front_hardcover_100pg.png": "front-cover_hardcover.png",
+      "dist/4_COVER_PARTS/back_6x9_trim.png": "back-cover.png",
+      "dist/4_COVER_PARTS/spine_paperback_100pg_0.25in.png": "spine_paperback_0.250in.png",
+      "dist/4_COVER_PARTS/spine_hardcover_100pg_0.439in.png": "spine_hardcover_0.439in.png"
+    },
+    "editable": {
+      "dist/3_EDITABLE/OneCallSalesperson_Interior_6x9.docx": "OneCallSalesperson_Interior_6x9.docx",
+      "dist/3_EDITABLE/OneCallSalesperson_Interior_6x9.odt": "OneCallSalesperson_Interior_6x9.odt"
+    }
+  },
+  "listing": {
+    "description_html": "<h4>What if the secret to becoming the best new home salesperson isn&rsquo;t saying the right thing&mdash;but listening to the right people?</h4>\n\n<p>In <i>The One Call Salesperson</i>, award-winning new home sales expert Julie Neill shares the real-world lessons, stories, and mindset that helped her win Salesperson of the Year with her current builder&mdash;in <b>only eight months, not twelve</b>.</p>\n\n<p>That&rsquo;s not luck. That&rsquo;s a better way to sell.</p>\n\n<p>Most sales training teaches you to present, to overcome objections, to create urgency. Julie argues we need to spend a lot more time learning <b>when not to say anything</b>&mdash;because people will tell you how to sell them if you give them enough room to talk.</p>\n\n<p><b>In this book, you&rsquo;ll learn how to:</b></p>\n<ul>\n<li>Build trust by making people feel safe and heard</li>\n<li>Turn tough conversations into stronger relationships</li>\n<li>Handle objections with calm, confidence, and empathy</li>\n<li>Stay persistent without being pushy</li>\n<li>Be the person buyers call&mdash;now and for years to come</li>\n<li>Sell more homes by putting people first</li>\n</ul>\n\n<p>Across eighteen short, direct chapters, Julie covers the things nobody puts in the training manual: why your model home should be a no-judgment zone, why difficult buyers are still buyers, why your ego can quietly cancel a contract, and why the calmest person in the conversation usually wins it.</p>\n\n<p>She sells new homes, so those are the stories she can tell. But these aren&rsquo;t really lessons about houses.</p>\n\n<p><b>They&rsquo;re lessons about people.</b></p>\n\n<p>Whether you sell homes, cars, insurance, software, or anything else that requires a human being to trust you first, the principle holds: hard work gets you into the conversation, listening tells you what to do once you&rsquo;re there.</p>\n\n<p><i>&ldquo;Don&rsquo;t be the salesperson they&rsquo;re avoiding. Be the person they call.&rdquo;</i></p>",
+    "author_bio": "Julie Neill has spent more than 20 years working in nearly every aspect of new home construction, but her connection to the industry started long before it became her career. She grew up on construction sites&mdash;her grandfather, father, and two brothers all worked in construction, making homebuilding as much a part of her upbringing as it is her professional life.\n\nOver the course of her career, Julie has worked across multiple sides of the new home industry, giving her a perspective that extends far beyond the sales office. Her experience has taught her how homes are built, how problems are solved, what homeowners expect, and&mdash;most importantly&mdash;how much trust matters when someone is making one of the largest purchases of their life.\n\nNew home sales was a natural progression. Julie brought her decades of homebuilding knowledge and experience with homeowners into the model home, where her people-first approach quickly produced results. She was named Salesperson of the Year, earning the honor with eight months of selling time in a twelve-month sales year.\n\nJulie is known for her persistence, straightforward personality, deep knowledge of the homebuilding industry, and her ability to connect with buyers as people rather than prospects.",
+    "keywords": [
+      "new home sales training",
+      "real estate sales book",
+      "how to sell new construction homes",
+      "building rapport with buyers",
+      "overcoming objections in sales",
+      "relationship selling book",
+      "sales mindset for women"
+    ],
+    "categories": [
+      "BUSINESS & ECONOMICS / Sales & Selling / General",
+      "BUSINESS & ECONOMICS / Real Estate / Buying & Selling Homes"
+    ],
+    "pricing": {
+      "rights": "I own the copyright and hold necessary publishing rights",
+      "territories": "All territories (worldwide rights)",
+      "marketplace": "Amazon.com",
+      "ebook": "$6.99  (keeps you in the 70% royalty band: $2.99-$9.99)",
+      "paperback": "$14.99  (KDP will show the printing cost; it must clear that)",
+      "hardcover": "$24.99  (hardcover printing costs are notably higher)"
+    }
+  }
+}

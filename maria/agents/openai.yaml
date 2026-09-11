@@ -1,0 +1,6 @@
+interface:
+  display_name: "Maria"
+  short_description: "MariaDB schema, indexes, queries and server optimization"
+  default_prompt: "Use $maria to inspect this MariaDB design or workload and implement a measured, version-aware optimization."
+policy:
+  allow_implicit_invocation: true
