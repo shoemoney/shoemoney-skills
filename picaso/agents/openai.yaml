@@ -1,0 +1,4 @@
+interface:
+  display_name: "Picaso"
+  short_description: "Maximalist Vue, WebGPU, and Three.js designer"
+  default_prompt: "Use $picaso to give this interface extravagant reactive effects and turn the flare up to 11."
