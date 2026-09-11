@@ -33,6 +33,7 @@
 
 - [✨ What is this?](#-what-is-this)
 - [🧭 Pick a skill](#-pick-a-skill)
+- [🌳 What's inside each skill](#-whats-inside-each-skill)
 - [📦 Install](#-install)
 - [🔑 Prerequisites](#-prerequisites)
 - [🏗️ How a skill is built](#️-how-a-skill-is-built)
@@ -135,6 +136,267 @@ flowchart TD
 | 🧠 [`walk-the-funnel`](#-walk-the-funnel) | Trace a user's path stage by stage and measure where it actually leaks | `/walk-the-funnel` | ❌ | ❌ |
 
 ---
+
+## 🌳 What's inside each skill
+
+Most of these are not one command. They're small systems with modes, phases, sub-tools, and things they leave behind. This is the map. The full write-up for each one is further down.
+
+```mermaid
+mindmap
+  root((shoemoney-skills))
+    🔁 Session
+      refresh-resume
+        get-skillz pass
+        handoff file
+        blog post
+      pickup
+      get-skillz
+      scopecreep
+      autoresearch
+        classic loop
+        orchestrator
+        13 subcommands
+    ✍️ Publishing
+      ghostwriter
+        write · batch · retrofit · unslop
+      build-ebook-kdp
+        16 scripts
+      kdp-book-launch
+        5 phases · 3 audits
+      kdp-print-cover-rejections
+      md-to-pdf-render
+      going-public-audit
+    🎮 Games & UI
+      tripple-a-gamedev
+        9 scripts · ledger · probes
+      picaso
+      design-jury-loop
+        jury.py · dedupe.py
+    🧑‍🔧 Personas
+      maria
+        9 references
+      taytay
+        8 references · inspector
+      im5
+    🧠 Judgement
+      matrix-council
+        7 seats · 4 labels · rounds
+      walk-the-funnel
+```
+
+<details open>
+<summary><b>🔁 Session & workflow</b></summary>
+
+```
+refresh-resume/                      "save everything, then /clear"
+├── 1. get-skillz pass ──────────────▶ new or updated skills (what transfers to other projects)
+├── 2. handoff file ─────────────────▶ ~/.claude/resumes/<slug>-<timestamp>-<pid>.md
+│   ├── what's being worked on, host / repo / session context
+│   ├── status: done (and how verified) · in progress · blocked (on whom)
+│   ├── key decisions and why
+│   ├── open items in priority order
+│   ├── hard facts: paths, model IDs, exact commands, failure modes
+│   └── the exact first command to run next time
+├── 3. blog post ────────────────────▶ blog/YYYY-MM-DD-<slug>.md   (ONLY when the day TURNED)
+│   ├── bar: a belief killed by measurement · a fix that broke something invisible
+│   │        · a retraction · the moment the question changed
+│   ├── wrong turns stay in
+│   └── real numbers with sample sizes
+└── pairs with ──────────────────────▶ pickup (next session)
+
+pickup/                              "load the newest handoff, verify it, plan"
+├── resolve slug: git toplevel → cwd basename → global
+├── find newest resume for slug (falls back across slugs, asks which)
+├── re-verify what decays fast: git log vs mtime, merged branches, closed PRs
+├── trust what decays slow: paths, commands, credentials
+└── summarize: status · next 2–3 actions · what was re-verified vs trusted   (never auto-executes)
+
+get-skillz/                          "what did this session teach that transfers?"
+├── durability test: would this help someone on a different project next month?
+├── categories: gotchas · recurring bug patterns · house style · FAQs · optimizations
+├── evidence rule: every extraction cites the exact command / error / exchange
+├── routing: new skill · update existing · project memory · repo doc · drop
+└── output: skill files in skill-creator format, ≤500 lines, with the TELL not just the fix
+
+scopecreep/                          "queue it, don't chase it"
+├── QUEUE.md (project) or ~/.claude/QUEUE.md
+│   ├── ## Ready
+│   ├── ## Blocked
+│   ├── ## Notes worth keeping
+│   └── ## Measured and deliberately dropped   (with the number that settled it)
+├── one-line reply, then back to the task
+└── optional Stop hook: scopecreep-check.sh surfaces ready items, max once per 2h
+
+autoresearch/                        "modify → verify → keep or discard, unattended"
+├── modes
+│   ├── classic: needs Metric: or Verify:, loops until the number stops improving
+│   └── orchestrator: free-form goal → archetype → preset pipeline, resumable
+├── subcommands: :plan :debug :fix :security :ship :scenario :predict :learn :reason :probe :improve :evals :regression
+├── scripts/
+│   ├── orchestrate.sh     classify · next-hop · units · plateau · screen-cmd (safety gate) · verdict
+│   └── score-regression.sh  STABLE / UNSTABLE verdicts, rubric scoring
+├── references/  9 goal archetypes · debate personas · author/critic/judge protocol · STRIDE+OWASP checklist
+└── state: orchestrator-state.json · handoff.json per hop · *-results.tsv
+```
+
+</details>
+
+<details open>
+<summary><b>✍️ Writing & publishing</b></summary>
+
+```
+ghostwriter/                         "chapters with receipts, in the author's voice"
+├── modes
+│   ├── /ghostwriter 12  ·  15-24  ·  15,16,19        write chapters
+│   ├── /ghostwriter BATCH: Ch. 25-40 [direction]     batch with an editorial note
+│   ├── /ghostwriter retrofit 1-24                    add epigraph, hook, humor, first-person failures
+│   └── /ghostwriter unslop 1-14                      cleanup pass only
+├── pipeline per chapter (one Workflow, five phases)
+│   ├── research   Haiku, SearXNG only
+│   ├── write      Opus, voice cloned from four sample chapters
+│   ├── unslop     Sonnet: em dashes → 0, banned words, AI tells
+│   ├── cite-check Haiku: every claim → [RECEIPT NEEDED] or verified
+│   └── patch      Opus
+├── chapter shape: title · epigraph · hook · Bottom line · When it bites · The pattern
+│                  · One worked example · The quiet failure · Do/don't · Where this sits · Sources
+└── proof block: ls -la · wc -w ≥ 1,200 · grep -c "RECEIPT NEEDED" · grep -c "—" == 0
+
+build-ebook-kdp/                     "book.json in, KDP upload folder out"
+├── interior:  extract → typo → model → render_html (Chrome) → paginate (recto openers) → finalize (heads, folios, mirrored margins)
+├── covers:    kdp_calculator (exact geometry per binding) → cover.py (front · back · spine · wrap · ebook · proof guides)
+├── formats:   epub_build (epubcheck clean) · docx_build · odt_build
+├── checks:    verify.py (embedded fonts, recto openers, trim, page count)
+└── dist/
+    ├── UPLOAD_THESE/   1_PAPERBACK · 2_HARDCOVER · 3_KINDLE_EBOOK
+    ├── PROOFS/         guides with trim, safe area, spine, hinge
+    ├── EDITABLE_SOURCE/
+    ├── CONTENT_TO_PASTE/   one file per KDP form field
+    └── scripts/ + AGENTS.md   a runnable clone for whoever maintains it next
+
+kdp-book-launch/                     "the launch, not just the build"
+├── phase 1  manuscript lock ─── editorial review (subagent) · canon audit · locked commit
+├── phase 2  chapter art ──────── image gen per chapter · likeness audit (PASS/BORDERLINE/MISS) · B&W variants
+├── phase 3  covers ───────────── front + back art · typography overlay · wrap PDFs
+├── phase 4  build ────────────── EPUB (colour) · paperback PDF (B&W) · hardcover PDF · metadata
+├── phase 5  launch prep ──────── visual companion PDF · social pack (6 platforms) · KDP listing · press release · emails
+├── references/  phase checklist · KDP specs · prompt structure · cover regen troubleshooting · 3 audit methods
+├── templates/   launch config · book config · 3 prompt scaffolds · editorial prompt · listing blocks
+└── depends on: kdp-book-generator (third-party Node CLI) · OPENROUTER_API_KEY for image gen
+
+kdp-print-cover-rejections/          "why KDP bounced it, measured"
+├── causes: barcode zone (2.0 × 1.2 in) missing · text too close to an edge · wrong wrap size
+├── measure: Ghostscript rasterize @150dpi → numpy luminance + obstruction → draw safe zones → pdfinfo
+├── numbers: paperback ≥0.375 in trim / ≥0.4 in spine · hardcover ≥0.716 in · 6×9 bleed = 441×666 pt
+└── traps: margin set to the exact spec floor (0.40 → 0.398 rendered) · ghost art baked into variants
+
+md-to-pdf-render/                    "Markdown → paginated PDF, with a page budget"
+├── pandoc --embed-resources → headless Chrome --print-to-pdf
+├── over budget? tighten in order: line-height → font-size → margins   (never cut content first)
+├── gates: ligatures in text layer · localhost links · stylesheet 404 · rasterize and look
+└── print CSS that does 80%: @page size/margin · h2 break-after avoid · h3, li break-inside avoid
+
+going-public-audit/                  "before the visibility flip"
+├── 1. secrets in history, two ways:  gitleaks  +  manual blob sweep across ALL refs (incl. checkpoint refs)
+├── 2. sensitive filenames ever committed · committed-then-deleted ghosts
+├── 3. info disclosure: LAN IPs · internal hostnames · /Users/<you> paths · committer emails · your name in docstrings
+├── 4. readiness: LICENSE · installable module path
+├── 5. decide with the user: public · separate dist repo · stay private
+└── 6. flip, then verify anonymously: clone · raw URL 200 · go install · installer in a clean container
+```
+
+</details>
+
+<details open>
+<summary><b>🎮 Games & front-end</b></summary>
+
+```
+tripple-a-gamedev/                   "would a shopper believe a AAA studio made this?"
+├── preflight (once):  kill orphan Godot · warm .godot/ import cache · baseline suite green · load .aaa/ledger.json · list rescue/* branches
+├── per cycle
+│   ├── capture   live_capture.gd (real play, not posed)  →  verify_shots.py (exist · no dupes · real signal · motion · fresh)
+│   ├── probe     difficulty_probe.gd (headless sim, median across seeds)
+│   ├── review    consumer persona SEES 13 shots + dossier   (google/gemini-3.6-flash)
+│   ├── confirm   Opus: real? already fixed at HEAD or on an unmerged branch?
+│   ├── plan      Opus, BATCH=2 (one visual + one behaviour target)
+│   ├── implement Sonnet
+│   ├── gate      Opus, closeness ≥ 85%, up to 4 tries
+│   └── commit    or salvage the sound files and leave the finding open
+├── scripts/  wf_aaa.js · aaa_review.py · verify_shots.py · live_capture.gd · difficulty_probe.gd
+│             render_prompts.js · bench_reviewers.py · check_doc_drift.sh · test_verify_shots_freshness.py
+└── leaves behind: .aaa/ (ledger, shots, pacing, calibration) · Backlog.md · rescue/* branches · one commit per passed cycle
+
+picaso/                              "flare to 11, accessibility intact"
+├── Vue: Composition API, composables, transitions
+├── Three.js: materials, lighting, shaders, instancing, postprocessing
+├── WebGPU: compute + render pipelines, WGSL, device loss
+├── motion: particles, trails, bloom, ripples, parallax, morphing geometry
+└── hard rules: decorative layers never block clicks or focus · reduced-motion respected · data-driven motion only · FPS measured, never claimed
+
+design-jury-loop/                    "five models critique, dedupe, ship, repeat"
+├── per round
+│   ├── brief      brand rules · live URLs · component inventory · JSON schema with an honest stop: true
+│   ├── jury.py    5 models in parallel → per-model JSON + summary.json with votes
+│   ├── dedupe.py  → improve.md, agreement counts, category buckets
+│   ├── decide     auto-YES at ≥2 votes, a11y, contrast, palette, trust items
+│   ├── implement  fan-out by file ownership, must pass build
+│   └── commit     "design-jury r$i: …" and push
+├── stop: stop_votes ≥ 3 · queue empty · iteration cap
+└── variants: vision jury (downscaled screenshots) · print jury (PDF → per-page PNG) · blind-ranked competing plans
+```
+
+</details>
+
+<details open>
+<summary><b>🧑‍🔧 Personas</b></summary>
+
+```
+maria/                               MariaDB architect
+├── types-schema · keys-indexes · queries-optimizer · locks-ddl
+├── innodb-server · logging-observability · architecture-recovery · tools-skills
+├── diagnostics.sql   read-only queries for version, settings, metrics, workload
+└── rules: optimize the measured workload · EXPLAIN ≠ ANALYZE · memory and concurrency together · never invent gains
+
+taytay/                              Laravel 13 engineer
+├── eloquent-database · jobs-queues · events-realtime · octane-runtime
+├── redis-phpredis · boost-skills · framework-toolbox · sources
+├── scripts/inspect-laravel.py   versions and mismatches from composer files, without booting the app
+└── rules: baseline p50/p95/p99 first · Octane boots once, no request state in singletons · no upgrades just for a newer API
+
+im5/                                 explain it like I'm five
+├── what it's FOR, one sentence
+├── one everyday comparison (kitchen, house, car, queue, mail, toys, money)
+├── the one consequence that matters
+└── "That's what people mean by <term>."      four sentences, hard cap
+```
+
+</details>
+
+<details open>
+<summary><b>🧠 Judgement</b></summary>
+
+```
+matrix-council/                      "settle it with evidence, not a vote"
+├── seats: Neo (Fable, chair, has tools) · Morpheus · Trinity · Mouse · Tank · Seraph · Niobe (six OpenRouter models) · Operators (Haiku research)
+├── labels on every claim: VERIFIED · CONTESTED · THEORY (must name its test) · UNMEASURED
+├── rounds
+│   ├── brief.md → round 1 opening positions (council.py)
+│   ├── open_research → Operators fan out (SearXNG only) → research.md
+│   ├── Neo verifies load-bearing claims himself from repo / DB / artifacts
+│   ├── round 2 cross-examination with --prior and --research
+│   └── more rounds until consensus, or productive deadlock with one named experiment
+└── outputs: council_meetings/<slug>/verdict.html · blog/<date>-<slug>.md
+
+walk-the-funnel/                     "be an actual stranger"
+├── fresh identity: plus-aliased email, never an admin or test account
+├── start where a stranger starts: follow the copy literally
+├── cross every seam in-band: signup → verify email → destination → minted key → use it against prod
+└── clean up: revoke, confirm the revocation took
+```
+
+</details>
+
+---
+
 
 ## 📦 Install
 
