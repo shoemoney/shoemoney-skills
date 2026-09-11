@@ -216,7 +216,7 @@ On stop: write final section to `improve.md`:
 - URL: `https://cue.shoemoney.ai` (+ `/studio`)
 - Brand file: `brand/CHOSEN.md`
 - Improve: `brand/improve.md`
-- Deploy: rsync `backend/` → `192.168.1.10:/mnt/tank/apps/cue/backend` then
+- Deploy: rsync `backend/` → `<deploy-host>:<deploy-path>/cue/backend` then
   `sudo docker compose build api && up -d --force-recreate api`
 - Verify: curl `/` `/studio` `/brand/favicon.svg` — HTTPS asset URLs only
 
