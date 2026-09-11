@@ -10,16 +10,16 @@
 
 # 🧠 shoemoney-skills
 
-**The keeper vault.** Six original, battle-tested Claude Code skills — the ones that earned a permanent home.
+**The keeper vault.** Seven original, battle-tested Claude Code skills — the ones that earned a permanent home.
 
-[![skills](https://img.shields.io/badge/skills-6-blueviolet?style=for-the-badge&logo=anthropic)](#-the-skills)
+[![skills](https://img.shields.io/badge/skills-7-blueviolet?style=for-the-badge&logo=anthropic)](#-the-skills)
 [![status](https://img.shields.io/badge/status-production--used-success?style=for-the-badge)](#-the-skills)
 [![python](https://img.shields.io/badge/python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](#-prerequisites)
 [![node](https://img.shields.io/badge/node-20%2B-339933?style=for-the-badge&logo=node.js&logoColor=white)](#-prerequisites)
 [![platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux-lightgrey?style=for-the-badge&logo=apple)](#-cross-platform)
 [![github](https://img.shields.io/badge/GitHub-shoemoney%2Fshoemoney--skills-181717?style=for-the-badge&logo=github)](https://github.com/shoemoney/shoemoney-skills) [![mirror](https://img.shields.io/badge/mirror-Forgejo-orange?style=for-the-badge&logo=forgejo&logoColor=white)](https://git.shoemoney.ai/shoemoney/shoemoney-skills)
 
-*Ghostwrite a book. Reset your context. Ship a AAA-looking game. Turn the flare to 11. Convene a jury. Summon the council.*
+*Ghostwrite a book. Reset your context. Ship a AAA-looking game. Turn the flare to 11. Convene a jury. Summon the council. Explain it to a five-year-old.*
 
 </div>
 
@@ -47,6 +47,7 @@
   - [🎨 picaso](#-picaso)
   - [⚖️ design-jury-loop](#️-design-jury-loop)
   - [🕶️ matrix-council](#️-matrix-council)
+  - [🧒 im5](#-im5)
 
 </td>
 <td>
@@ -67,13 +68,13 @@
 
 A **Claude Code skill** is a folder with a `SKILL.md` in it. Claude reads the frontmatter to decide *when* to use it, then follows the body as a playbook. Add scripts, and the skill can shell out to real tools instead of guessing.
 
-This repo is the curated cut: **six skills that get used for real work every week**, not a dump of everything ever written. Each one lives in its own folder and can be installed on its own.
+This repo is the curated cut: **seven skills that get used for real work every week**, not a dump of everything ever written. Each one lives in its own folder and can be installed on its own.
 
-| 🔥 Why these six | |
+| 🔥 Why these seven | |
 |---|---|
 | **They're original** | Written from scratch for this workflow, not forked from a marketplace. |
 | **They're measured** | Each `SKILL.md` carries the scars: wall-clock timings, failure counts, what broke and why. |
-| **They're loops, not one-shots** | Four of six run *review → fix → verify → repeat* until an independent judge says stop. |
+| **They're loops, not one-shots** | Four of seven run *review → fix → verify → repeat* until an independent judge says stop. |
 | **They fan out** | Haiku researches, Sonnet codes, Opus reviews, Fable plans. Frontier models via OpenRouter argue with each other. |
 
 ---
@@ -89,6 +90,7 @@ flowchart TD
     Q -->|Vue / Three.js / WebGPU visual flare| PIC[🎨 picaso]
     Q -->|Multi-model UI & brand review loop| DJ[⚖️ design-jury-loop]
     Q -->|Settle a hard technical argument| MC[🕶️ matrix-council]
+    Q -->|Explain it so anyone gets it| IM[🧒 im5]
 
     style GW fill:#6d28d9,color:#fff
     style RR fill:#0891b2,color:#fff
@@ -96,6 +98,7 @@ flowchart TD
     style PIC fill:#db2777,color:#fff
     style DJ fill:#d97706,color:#fff
     style MC fill:#111827,color:#4ade80
+    style IM fill:#16a34a,color:#fff
 ```
 
 | Skill | One-liner | Trigger | Needs API key? | Loops? |
@@ -106,6 +109,7 @@ flowchart TD
 | 🎨 [`picaso`](#-picaso) | Maximalist Vue / Three.js / WebGPU interaction designer persona | `$picaso` / "Picaso" | ❌ | ❌ |
 | ⚖️ [`design-jury-loop`](#️-design-jury-loop) | 5 frontier models critique a live UI, dedupe, implement, ship, repeat | `/design-jury-loop 3` | ✅ OpenRouter | ✅ N rounds |
 | 🕶️ [`matrix-council`](#️-matrix-council) | Six models debate + Fable chairs; every claim labelled and verified | `/matrix-council` | ✅ OpenRouter | ✅ up to ~5 rounds |
+| 🧒 [`im5`](#-im5) | Explain anything in four sentences, one everyday comparison, zero jargon | `/im5 <topic>` | ❌ | ❌ |
 
 ---
 
@@ -122,7 +126,7 @@ git clone https://github.com/shoemoney/shoemoney-skills.git ~/Projects/shoemoney
 # or from the Forgejo mirror: git clone https://git.shoemoney.ai/shoemoney/shoemoney-skills.git ~/Projects/shoemoney-skills
 
 mkdir -p ~/.claude/skills
-for s in ghostwriter refresh-resume tripple-a-gamedev picaso design-jury-loop matrix-council; do
+for s in ghostwriter refresh-resume tripple-a-gamedev picaso design-jury-loop matrix-council im5; do
   ln -sfn ~/Projects/shoemoney-skills/$s ~/.claude/skills/$s
 done
 ```
@@ -605,6 +609,42 @@ python3 scripts/council.py <brief.md> --round <name> --out-dir council_meetings/
 
 ---
 
+### 🧒 im5
+
+> **Explain the thing as if the reader is five. Four sentences, hard cap. One everyday comparison. Zero jargon. First word is the answer.**
+
+📁 `im5/` · 1 file · persona skill, no scripts, no keys
+
+#### What it does
+
+The opposite of the other six. No fan-out, no loop, no models arguing. It takes a topic and answers with what the thing is **for** before what it **is**, using a comparison from a kitchen, a house, a car, a queue, mail, toys, or money.
+
+```
+<What it's for, one sentence.>
+<The comparison, one or two sentences.>
+<The one consequence that matters.>
+That's what people mean by <term>.
+```
+
+#### How to use it
+
+| Say | Result |
+|---|---|
+| `/im5 a load balancer` | the restaurant host who seats each group at whichever table is free |
+| "explain DNS like I'm 5" | the phone book that turns "the pizza place" into a street address |
+| "dumb it down" / "in plain English" / "what does that actually mean" | same skill, topic is whatever you named |
+
+#### Rules it enforces
+
+- 🔢 **Four sentences, hard cap.** Two or three is usually better. Needing more means the comparison is wrong, not that the topic is big.
+- 🚫 **No jargon, no acronyms.** If a term is the whole point, plain version first, then name it once at the end.
+- 🚫 **No hedging.** No "essentially", "basically", "sort of", "you can think of it as".
+- 🚫 **No preamble.** Never restates the question.
+- 😶 **One emoji max**, at the end, and usually none.
+- 🎯 If the honest answer needs detail, it gives the five-year-old version first and then offers *"Want the real version?"*
+
+---
+
 ## 🔗 Shared patterns
 
 These skills rhyme on purpose.
@@ -639,6 +679,7 @@ mindmap
 | **OpenRouter key from the aigate vault first, env second** | tripple-a-gamedev, design-jury-loop, matrix-council |
 | **JSON out of models, extracted defensively** | jury.py, council.py, aaa_review.py |
 | **Never claim done without shell proof** | ghostwriter, refresh-resume, tripple-a-gamedev, picaso |
+| **Say what it is FOR before what it IS** | im5, and every skill description in this repo |
 | **Commit after each round** | design-jury-loop, tripple-a-gamedev |
 
 ---
@@ -653,6 +694,7 @@ mindmap
 | picaso | ✅ | ✅ | ✅ |
 | design-jury-loop | ✅ used here | ✅ | ⚠️ print-jury pipeline assumes `pdftoppm` |
 | matrix-council | ✅ used here | ✅ | ✅ (python3 only) |
+| im5 | ✅ | ✅ | ✅ |
 
 ---
 
@@ -668,7 +710,7 @@ flowchart LR
 
 | Status | Item |
 |---|---|
-| ✅ | Six skills in their own folders, pushed |
+| ✅ | Seven skills in their own folders, pushed |
 | ✅ | This README |
 | 🔨 | `install.sh` that does Option A for you |
 | ⬜ | CI: run `test_verify_shots_freshness.py` and a `--dry-run` of `jury.py` / `council.py` |
@@ -696,7 +738,7 @@ MIT. Take what's useful. The scars are free.
 
 <div align="center">
 
-**Six skills. Zero fluff. All of them have been run at 3am.** 🌙
+**Seven skills. Zero fluff. All of them have been run at 3am.** 🌙
 
 *If a skill in here lied to you, the fix is a PR to `SKILL.md`, not a note in your head.*
 
