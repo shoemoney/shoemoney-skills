@@ -463,7 +463,7 @@ Start a new Claude Code session and type `/` — the skill names should autocomp
 | Symptom | Fix |
 |---|---|
 | Skill doesn't show up | Frontmatter `name:` must match the folder name. Restart the session; skills load at start. |
-| `/tripple-a-gamedev` runs but the reviewer script fails to import `or_call` | It needs the shared OpenRouter helper from the `shoop` skill at `~/.claude/skills/shoop/scripts/or_call.py`. See [Prerequisites](#-prerequisites). |
+| `/tripple-a-gamedev` runs but the reviewer script fails to import `or_call` | It's vendored at `tripple-a-gamedev/scripts/or_call.py` — no external skill needed. If it still fails, check you're running from a checkout that has that file. See [Prerequisites](#-prerequisites). |
 | OpenRouter calls return `"User not found"` | Stale `OPENROUTER_API_KEY` in your shell. The scripts prefer the aigate vault (`~/.claude/aigate/env`); rotate the key there. |
 | Reasoning model returns empty content | `max_tokens` too low. `matrix-council` defaults to 12000 on purpose. Don't lower it. |
 
@@ -479,7 +479,7 @@ Start a new Claude Code session and type `/` — the skill names should autocomp
 | **Python 3.11+** | `tripple-a-gamedev`, `design-jury-loop`, `matrix-council` | Stdlib only, except `Pillow` for screenshot verification in `tripple-a-gamedev`. |
 | **Node 20+** | `tripple-a-gamedev` | `wf_aaa.js` is the Workflow script; `render_prompts.js` builds reviewer prompts. |
 | **OpenRouter API key** | `tripple-a-gamedev`, `design-jury-loop`, `matrix-council` | Read from `OPENROUTER_API_KEY`, `~/.config/openrouter/key`, or the aigate vault at `~/.claude/aigate/env` (checked first). |
-| **`or_call.py`** from the `shoop` skill | `tripple-a-gamedev` | Shared OpenRouter chat helper. The scripts look in `~/.claude/skills/shoop/scripts/`. |
+| **`or_call.py`** (vendored) | `tripple-a-gamedev` | Ships in `tripple-a-gamedev/scripts/or_call.py` — no external skill needed. Key lookup order: the aigate vault (only if `AIGATE_URL` is set) &rarr; `~/.config/openrouter/key` &rarr; `OPENROUTER_API_KEY` env var. |
 | **SearXNG MCP server** | `ghostwriter`, `matrix-council` | All web research goes through `mcp__searxng__searxng_web_search` and `web_url_read`. Never the generic WebSearch tool. |
 | **Godot 4.x** + the `godot` MCP servers | `tripple-a-gamedev` | Screenshots are captured from the real running game. |
 | **Playwright MCP** | `design-jury-loop` | For screenshot briefs when running a vision jury. |
@@ -1589,7 +1589,7 @@ flowchart LR
 | ✅ | This README |
 | 🔨 | `install.sh` that does Option A for you |
 | ⬜ | CI: run `test_verify_shots_freshness.py` and a `--dry-run` of `jury.py` / `council.py` |
-| ⬜ | Vendor `or_call.py` so `tripple-a-gamedev` stops depending on `shoop` |
+| ✅ | Vendor `or_call.py` so `tripple-a-gamedev` no longer depends on an external skill |
 | ✅ | Second wave: session tools, the KDP book pipeline, Maria and Taytay, walk-the-funnel, going-public-audit |
 | ✅ | `publish-skills-repo`, the skill this vault was curated with |
 | ⬜ | The lessons pack: ~45 measured agent failure modes as their own repo |
