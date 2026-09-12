@@ -72,10 +72,13 @@ if [ "$DO_LIST" -eq 1 ]; then
   exit 0
 fi
 
-mapfile -t ALL_SKILLS < <(list_skills)
+ALL_SKILLS=()
+while IFS= read -r line; do ALL_SKILLS+=("$line"); done < <(list_skills)
 
 if [ "$DO_ALL" -eq 1 ]; then
-  SKILLS=("${ALL_SKILLS[@]}")
+  if [ ${#ALL_SKILLS[@]} -gt 0 ]; then
+    SKILLS=("${ALL_SKILLS[@]}")
+  fi
 fi
 
 if [ ${#SKILLS[@]} -eq 0 ]; then
@@ -85,6 +88,7 @@ fi
 
 is_valid_skill() {
   local name="$1" s
+  [ ${#ALL_SKILLS[@]} -eq 0 ] && return 1
   for s in "${ALL_SKILLS[@]}"; do
     [ "$s" = "$name" ] && return 0
   done
@@ -94,7 +98,9 @@ is_valid_skill() {
 for name in "${SKILLS[@]}"; do
   if ! is_valid_skill "$name"; then
     echo "error: unknown skill '$name'. Valid skills:" >&2
-    printf '  %s\n' "${ALL_SKILLS[@]}" >&2
+    if [ ${#ALL_SKILLS[@]} -gt 0 ]; then
+      printf '  %s\n' "${ALL_SKILLS[@]}" >&2
+    fi
     exit 1
   fi
 done
