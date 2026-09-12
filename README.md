@@ -1591,7 +1591,7 @@ mindmap
 flowchart LR
     A[✅ seed the vault] --> B[✅ README] --> B2[✅ second wave: 19 skills] --> B3[✅ publish-skills-repo: 20]
     B3 --> C[✅ install script]
-    C --> D[⬜ smoke tests per script]
+    C --> D[✅ smoke tests per script]
     D --> E[⬜ more originals as they earn it]
 ```
 
@@ -1600,7 +1600,7 @@ flowchart LR
 | ✅ | Twenty skills in their own folders, pushed |
 | ✅ | This README |
 | ✅ | `install.sh` that does Option A for you |
-| ⬜ | CI: run `test_verify_shots_freshness.py` and a `--dry-run` of `jury.py` / `council.py` |
+| ✅ | CI (`.github/workflows/smoke.yml`): `.github/smoke.sh` checks SKILL.md frontmatter names, `py_compile`/`bash -n` syntax, a portability grep gate (no hardcoded LAN IPs, personal home-directory paths, or NAS mount paths), and `test_verify_shots_freshness.py`, on every push and PR |
 | ✅ | Vendor `or_call.py` so `tripple-a-gamedev` no longer depends on an external skill |
 | ✅ | Second wave: session tools, the KDP book pipeline, Maria and Taytay, walk-the-funnel, going-public-audit |
 | ✅ | `publish-skills-repo`, the skill this vault was curated with |
