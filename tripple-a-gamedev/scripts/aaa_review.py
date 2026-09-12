@@ -16,8 +16,7 @@ import base64
 import json
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(HERE)), "skills", "shoop", "scripts"))
-sys.path.insert(0, os.path.expanduser("~/.claude/skills/shoop/scripts"))
+sys.path.insert(0, HERE)
 from or_call import call, to_ascii  # noqa: E402
 
 # Default reviewer. Vision quality is the whole job now, so this is a metered OpenRouter

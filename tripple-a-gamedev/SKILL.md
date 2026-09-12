@@ -214,7 +214,10 @@ Effective cadence remains the cycle time (~4–5h for an hourly ralph); max-para
   latency saved. Proxies measure phrasing; only the known-answer probe measures the thing that
   matters. Re-run `bench_reviewers.py` **and** an OCR probe before changing the slug, and never swap
   on proxies alone (full log: `aaa_review.py:29-47`). `kimi-*` slugs route to the flat-rate kimi.com endpoint.
-  Keys via `~/.claude/skills/shoop/scripts/or_call.py` (aigate). Runnable standalone.
+  Keys via the vendored `scripts/or_call.py` (no external skill dependency). Key lookup
+  order: the aigate vault (`~/.claude/aigate/env`, only if `AIGATE_URL` is set there or in
+  the environment) &rarr; `~/.config/openrouter/key` &rarr; `OPENROUTER_API_KEY` env var.
+  Runnable standalone.
 - `scripts/verify_shots.py <shots_dir> [--min-shots N]` — the capture gate. Exit 0 = real
   images; exit 1 = refuse to proceed. Runnable standalone; use it any time you need to know
   whether a screenshot pass actually captured anything.
