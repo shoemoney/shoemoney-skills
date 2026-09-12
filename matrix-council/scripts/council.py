@@ -278,12 +278,30 @@ def main() -> None:
     ap.add_argument("--prior", help="prior round JSON, fed back for cross-examination")
     ap.add_argument("--research", help="markdown file of Operator research findings")
     ap.add_argument("--max-tokens", type=int, default=12000)
+    ap.add_argument("--dry-run", action="store_true",
+                     help="Validate args, resolve the member list, print the plan as JSON, "
+                          "and exit — no network call, no key lookup, no out-dir writes.")
     args = ap.parse_args()
 
     out = Path(args.out_dir)
+    brief = Path(args.brief).read_text()
+    names = [n.strip() for n in args.members.split(",") if n.strip() in MEMBERS]
+
+    if args.dry_run:
+        plan = {
+            "brief_chars": len(brief),
+            "round": args.round,
+            "members": names,
+            "out_dir": str(out),
+            "prior": args.prior,
+            "research": args.research,
+            "max_tokens": args.max_tokens,
+        }
+        print(json.dumps(plan, indent=2))
+        return
+
     out.mkdir(parents=True, exist_ok=True)
     key = find_key()
-    brief = Path(args.brief).read_text()
 
     prompt = f"# THE QUESTION BEFORE THE COUNCIL\n\n{brief}\n"
 
@@ -315,7 +333,6 @@ def main() -> None:
                 prompt += f"  ! challenges {ch.get('member')}: {ch.get('problem','')}\n"
             prompt += "\n"
 
-    names = [n.strip() for n in args.members.split(",") if n.strip() in MEMBERS]
     results: list[dict] = []
     with ThreadPoolExecutor(max_workers=len(names)) as pool:
         futs = {

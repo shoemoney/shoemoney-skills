@@ -80,6 +80,10 @@ Each seated member returns strict JSON: `position`, `claims[]` (each labelled, w
 for THEORY/CONTESTED — a test), `challenges[]`, `retractions[]`, `needs_research[]`,
 `consensus_ready`, `dissent`.
 
+`council.py --dry-run` (accepts the same flags) validates args, reads the brief, resolves the
+member list, and prints the plan (`brief_chars`, `round`, `members`, `out_dir`, `prior`,
+`research`, `max_tokens`) as JSON — no key lookup, no network call, no out-dir writes.
+
 ### 3. Dispatch the Operators
 
 Read `round-1-opening.json` → `open_research`. For each distinct question, dispatch a **Haiku**

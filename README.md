@@ -1254,7 +1254,7 @@ sequenceDiagram
 
 | Script | CLI |
 |---|---|
-| `jury.py` | `jury.py <brief.txt> [--models m1,m2,…] [--out-dir DIR] [--timeout 240] [--max-tokens 6000]` — parallel OpenRouter calls, per-model JSON, `summary.json` with vote counts |
+| `jury.py` | `jury.py <brief.txt> [--models m1,m2,…] [--out-dir DIR] [--timeout 240] [--max-tokens 6000] [--dry-run]` — parallel OpenRouter calls, per-model JSON, `summary.json` with vote counts. `--dry-run` prints the resolved plan (models, out-dir, timeout, max-tokens) as JSON and exits before any key lookup or network call |
 | `dedupe.py` | `dedupe.py <summary.json> <improve.md> [--round N]` — merges findings, buckets by general / transitions / professional / font, counts agreement |
 
 **Default jury:** `anthropic/claude-opus-5` · `openai/gpt-5.6-sol` · `google/gemini-3.7-flash` · `x-ai/grok-4.6` · `deepseek/deepseek-v4-flash`. Override with `--models`.
@@ -1456,8 +1456,10 @@ stateDiagram-v2
 
 ```bash
 python3 scripts/council.py <brief.md> --round <name> --out-dir council_meetings/<slug> \
-  [--members <list>] [--prior <json>] [--research <md>] [--max-tokens 12000]
+  [--members <list>] [--prior <json>] [--research <md>] [--max-tokens 12000] [--dry-run]
 ```
+
+`--dry-run` prints the resolved plan (brief size, round, members, out-dir, prior, research, max-tokens) as JSON and exits before any key lookup or network call.
 
 #### Outputs
 
