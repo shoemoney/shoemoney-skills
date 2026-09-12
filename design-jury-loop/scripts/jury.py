@@ -154,11 +154,26 @@ def main() -> int:
     ap.add_argument("--out-dir", type=Path, default=Path("/tmp/design-jury"))
     ap.add_argument("--timeout", type=int, default=240)
     ap.add_argument("--max-tokens", type=int, default=6000)
+    ap.add_argument("--dry-run", action="store_true",
+                     help="Validate args, resolve the model list, print the plan as JSON, "
+                          "and exit — no network call, no key lookup, no out-dir writes.")
     args = ap.parse_args()
 
     brief = args.brief.read_text()
     models = [m.strip() for m in args.models.split(",") if m.strip()]
     out_dir: Path = args.out_dir
+
+    if args.dry_run:
+        plan = {
+            "brief_chars": len(brief),
+            "models": models,
+            "out_dir": str(out_dir),
+            "timeout": args.timeout,
+            "max_tokens": args.max_tokens,
+        }
+        print(json.dumps(plan, indent=2))
+        return 0
+
     out_dir.mkdir(parents=True, exist_ok=True)
     key = find_key()
 

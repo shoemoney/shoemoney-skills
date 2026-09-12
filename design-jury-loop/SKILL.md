@@ -67,6 +67,10 @@ python3 "$SKILL/scripts/dedupe.py" /tmp/design-jury-r$N/summary.json \
   "$OUT/improve.md" --round $N
 ```
 
+`jury.py --dry-run <brief.txt>` validates args, reads the brief, resolves the model list, and
+prints the plan (`brief_chars`, `models`, `out_dir`, `timeout`, `max_tokens`) as JSON — no key
+lookup, no network call, no out-dir writes. Useful for CI or sanity-checking flags.
+
 ## Loop (per iteration `i = 1..iterations`)
 
 ### 1) Snapshot the implemented design
