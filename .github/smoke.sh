@@ -89,8 +89,8 @@ check_bash_syntax() {
 # --- (d) portability gate ----------------------------------------------------
 # No hardcoded LAN IPs, personal /Users/<name> paths, or /mnt/tank paths
 # anywhere in the repo. ghostwriter/ is a known, tracked exception (its
-# SKILL.md paths aren't parametrized yet) and 192.168.x.x is a documented
-# placeholder, not a leak.
+# SKILL.md paths aren't parametrized yet); 192.168.x.x and /Users/you are
+# documented placeholders, not leaks.
 check_portability() {
     local out
     # --exclude=.git (in addition to --exclude-dir=.git) matters only when this
@@ -100,6 +100,7 @@ check_portability() {
     out="$(grep -rnE '192\.168\.[0-9]+\.[0-9]+|/Users/[a-z]+|/mnt/tank' \
         --exclude-dir=.git --exclude=.git --exclude-dir=.remember --exclude-dir=.github . 2>/dev/null \
         | grep -v '192\.168\.x\.x' \
+        | grep -v '/Users/you' \
         | grep -Ev '^\.?/?ghostwriter/')"
 
     if [ -z "$out" ]; then
