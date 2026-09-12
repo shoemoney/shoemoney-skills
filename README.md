@@ -10,9 +10,9 @@
 
 # 🧠 shoemoney-skills
 
-**The keeper vault.** Nineteen original, battle-tested Claude Code skills — the ones that earned a permanent home.
+**The keeper vault.** Twenty original, battle-tested Claude Code skills — the ones that earned a permanent home.
 
-[![skills](https://img.shields.io/badge/skills-19-blueviolet?style=for-the-badge&logo=anthropic)](#-the-skills)
+[![skills](https://img.shields.io/badge/skills-20-blueviolet?style=for-the-badge&logo=anthropic)](#-the-skills)
 [![status](https://img.shields.io/badge/status-production--used-success?style=for-the-badge)](#-the-skills)
 [![python](https://img.shields.io/badge/python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](#-prerequisites)
 [![node](https://img.shields.io/badge/node-20%2B-339933?style=for-the-badge&logo=node.js&logoColor=white)](#-prerequisites)
@@ -43,7 +43,7 @@
 
 - [🎯 The skills](#-the-skills)
   - 🔁 Session: [refresh-resume](#-refresh-resume) · [pickup](#-pickup) · [get-skillz](#-get-skillz) · [scopecreep](#-scopecreep) · [autoresearch](#-autoresearch)
-  - ✍️ Publishing: [ghostwriter](#️-ghostwriter) · [build-ebook-kdp](#-build-ebook-kdp) · [kdp-book-launch](#-kdp-book-launch) · [kdp-print-cover-rejections](#-kdp-print-cover-rejections) · [md-to-pdf-render](#-md-to-pdf-render) · [going-public-audit](#-going-public-audit)
+  - ✍️ Publishing: [ghostwriter](#️-ghostwriter) · [build-ebook-kdp](#-build-ebook-kdp) · [kdp-book-launch](#-kdp-book-launch) · [kdp-print-cover-rejections](#-kdp-print-cover-rejections) · [md-to-pdf-render](#-md-to-pdf-render) · [going-public-audit](#-going-public-audit) · [publish-skills-repo](#-publish-skills-repo)
   - 🎮 Games & front-end: [tripple-a-gamedev](#-tripple-a-gamedev) · [picaso](#-picaso) · [design-jury-loop](#️-design-jury-loop)
   - 🧑‍🔧 Personas: [maria](#-maria) · [taytay](#-taytay) · [im5](#-im5)
   - 🧠 Judgement: [matrix-council](#️-matrix-council) · [walk-the-funnel](#-walk-the-funnel)
@@ -67,9 +67,9 @@
 
 A **Claude Code skill** is a folder with a `SKILL.md` in it. Claude reads the frontmatter to decide *when* to use it, then follows the body as a playbook. Add scripts, and the skill can shell out to real tools instead of guessing.
 
-This repo is the curated cut: **nineteen skills that get used for real work every week**, not a dump of everything ever written. Each one lives in its own folder and can be installed on its own.
+This repo is the curated cut: **twenty skills that get used for real work every week**, not a dump of everything ever written. Each one lives in its own folder and can be installed on its own.
 
-| 🔥 Why these nineteen | |
+| 🔥 Why these twenty | |
 |---|---|
 | **They're original** | Written from scratch for this workflow, not forked from a marketplace. |
 | **They're measured** | Each `SKILL.md` carries the scars: wall-clock timings, failure counts, what broke and why. |
@@ -97,6 +97,7 @@ flowchart TD
     W --> KPC[kdp-print-cover-rejections]
     W --> MDP[md-to-pdf-render]
     W --> GPA[going-public-audit]
+    W --> PSR[publish-skills-repo]
     G --> AAA[tripple-a-gamedev]
     G --> PIC[picaso]
     G --> DJ[design-jury-loop]
@@ -126,6 +127,7 @@ flowchart TD
 | ✍️ [`kdp-print-cover-rejections`](#-kdp-print-cover-rejections) | Diagnose and fix a paperback or hardcover cover KDP keeps rejecting | "my cover got rejected" | ❌ | ❌ |
 | ✍️ [`md-to-pdf-render`](#-md-to-pdf-render) | Markdown or HTML → print-quality paginated PDF on macOS | "render this to PDF" | ❌ | ❌ |
 | ✍️ [`going-public-audit`](#-going-public-audit) | Sweep a repo for secrets, LAN paths, and your own name before flipping it public | `/going-public-audit` | ❌ | ❌ |
+| ✍️ [`publish-skills-repo`](#-publish-skills-repo) | Curate skills out of a private library into a public repo without leaking, breaking, or misdescribing them | "add skill X to the repo" | ❌ | ❌ |
 | 🎮 [`tripple-a-gamedev`](#-tripple-a-gamedev) | Consumer-persona reviewer *sees* your game, Sonnet fixes, Opus gates, repeat | `/tripple-a-gamedev 5` | ✅ OpenRouter | ✅ N cycles |
 | 🎮 [`picaso`](#-picaso) | Maximalist Vue / Three.js / WebGPU interaction designer persona | `$picaso` / "Picaso" | ❌ | ❌ |
 | 🎮 [`design-jury-loop`](#️-design-jury-loop) | 5 frontier models critique a live UI, dedupe, implement, ship, repeat | `/design-jury-loop 3` | ✅ OpenRouter | ✅ N rounds |
@@ -166,6 +168,8 @@ mindmap
       kdp-print-cover-rejections
       md-to-pdf-render
       going-public-audit
+      publish-skills-repo
+        provenance · rename · scrub · dangling check
     🎮 Games & UI
       tripple-a-gamedev
         9 scripts · ledger · probes
@@ -302,6 +306,14 @@ going-public-audit/                  "before the visibility flip"
 ├── 4. readiness: LICENSE · installable module path
 ├── 5. decide with the user: public · separate dist repo · stay private
 └── 6. flip, then verify anonymously: clone · raw URL 200 · go install · installer in a clean container
+
+publish-skills-repo/                 "the skill this vault was built with"
+├── 1. provenance is a lookup: symlink target · .gitmodules · first commit · name prefix  (never an LLM guess)
+│   └── portability score: one grep per skill for IPs · home paths · your domain · project paths
+├── 2. renaming breaks the skill's own scripts: grep old name · sed · READ the frontmatter back
+├── 3. scrubbed public copy vs installed original: pick a canonical direction, gate every commit
+├── 4. a subagent's brief is a draft: grep every mechanism claim (model:, env vars) against the scripts
+└── 5. repo shape: one folder per skill · dual push · name external deps · no file promised outside its folder
 ```
 
 </details>
@@ -1028,6 +1040,40 @@ Needs `gitleaks`, `git`, `gh`, `curl`, and Docker for installer checks.
 
 ---
 
+### 📦 publish-skills-repo
+
+> **Curate skills out of a private Claude Code library into a public repo without leaking, breaking, or misdescribing them. This vault was built with it.**
+
+📁 `publish-skills-repo/` · 1 file · five scars, each one measured while building this repo
+
+#### What it does
+
+1. **Provenance is a lookup, not a judgement call.** Symlink target, `.gitmodules`, first commit, name prefix. A model asked to sort 325 skills filed the author's own `get-skillz` as third-party; one shell loop got it right.
+2. **Portability score** per skill: one grep for LAN IPs, home paths, your domain, project paths. Zero means ship as-is.
+3. **Renaming a skill breaks its own scripts.** They hardcode `~/.claude/skills/<old-name>/…` as defaults. Grep, sed, then *read the frontmatter back*.
+4. **A scrubbed public copy and the installed original are two files.** Pick the canonical direction and run the portability gate on every commit, not just the first.
+5. **A subagent's brief is a draft.** Grep every mechanism claim (`model:` assignments, env vars) against the scripts before it becomes README text.
+6. **Nothing promised outside the folder.** A dangling-reference check catches a SKILL.md that names a hook or script the repo does not ship.
+
+#### How to use it
+
+| Say | Result |
+|---|---|
+| "add skill X to the repo" / "put my skills in a repo" / "open-source my skills" | the full pass on that skill |
+| "which skills did I write" / "which should I open-source" | the mechanical provenance sweep plus a portability score |
+| "rename skill X to Y" | rename with the self-path fix and the frontmatter read-back |
+
+Needs `git`, `grep`, `readlink`, `stat`. The `stat -f` and `sed -i ''` forms are BSD/macOS; swap for GNU on Linux.
+
+#### Rules baked in
+
+- 🔍 **Batches of skills sharing one mtime with no author marker are installed packs, not authored.** Label them unverified, don't guess either way.
+- 🔁 **The next `rsync` from the installed copy puts the leak back**, and the commit looks routine. The gate runs on updates.
+- 📝 **Prefer placeholders that keep the shape** (`<deploy-host>:<deploy-path>/app`, `192.168.x.x`) over deleting the line.
+- 🪝 **A skill that points at a file outside its own folder ships a broken promise.** Vendor it in, rewrite the path, leave the installed original alone.
+
+---
+
 <br>
 
 <div align="center">
@@ -1499,7 +1545,7 @@ mindmap
 | **Say what it is FOR before what it IS** | im5, and every skill description in this repo |
 | **Commit after each round** | design-jury-loop, tripple-a-gamedev |
 | **Measure, don't eyeball** | kdp-print-cover-rejections, md-to-pdf-render, maria, taytay, autoresearch |
-| **Be a stranger to your own system** | walk-the-funnel, going-public-audit, tripple-a-gamedev |
+| **Be a stranger to your own system** | walk-the-funnel, going-public-audit, publish-skills-repo, tripple-a-gamedev |
 
 ---
 
@@ -1521,6 +1567,7 @@ mindmap
 | kdp-print-cover-rejections | ✅ | ✅ | ✅ (advice + ImageMagick) |
 | md-to-pdf-render | ✅ macOS only by design | ⚠️ swap the Chrome path | ❌ |
 | going-public-audit / walk-the-funnel | ✅ | ✅ | ✅ |
+| publish-skills-repo | ✅ used here | ⚠️ `stat -f` and `sed -i ''` are BSD forms | ⚠️ POSIX shell |
 | maria / taytay | ✅ | ✅ | ✅ |
 
 ---
@@ -1529,20 +1576,21 @@ mindmap
 
 ```mermaid
 flowchart LR
-    A[✅ seed the vault] --> B[✅ README] --> B2[✅ second wave: 19 skills]
-    B2 --> C[🔨 install script]
+    A[✅ seed the vault] --> B[✅ README] --> B2[✅ second wave: 19 skills] --> B3[✅ publish-skills-repo: 20]
+    B3 --> C[🔨 install script]
     C --> D[⬜ smoke tests per script]
     D --> E[⬜ more originals as they earn it]
 ```
 
 | Status | Item |
 |---|---|
-| ✅ | Nineteen skills in their own folders, pushed |
+| ✅ | Twenty skills in their own folders, pushed |
 | ✅ | This README |
 | 🔨 | `install.sh` that does Option A for you |
 | ⬜ | CI: run `test_verify_shots_freshness.py` and a `--dry-run` of `jury.py` / `council.py` |
 | ⬜ | Vendor `or_call.py` so `tripple-a-gamedev` stops depending on `shoop` |
 | ✅ | Second wave: session tools, the KDP book pipeline, Maria and Taytay, walk-the-funnel, going-public-audit |
+| ✅ | `publish-skills-repo`, the skill this vault was curated with |
 | ⬜ | The lessons pack: ~45 measured agent failure modes as their own repo |
 | ⬜ | New skills get added only after they've been used on real work more than once |
 
@@ -1567,7 +1615,7 @@ MIT. Take what's useful. The scars are free.
 
 <div align="center">
 
-**Nineteen skills. Zero fluff. All of them have been run at 3am.** 🌙
+**Twenty skills. Zero fluff. All of them have been run at 3am.** 🌙
 
 *If a skill in here lied to you, the fix is a PR to `SKILL.md`, not a note in your head.*
 
