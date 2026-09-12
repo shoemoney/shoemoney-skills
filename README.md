@@ -162,7 +162,7 @@ mindmap
       ghostwriter
         write · batch · retrofit · unslop
       build-ebook-kdp
-        16 scripts
+        17 scripts
       kdp-book-launch
         5 phases · 3 audits
       kdp-print-cover-rejections
@@ -178,7 +178,7 @@ mindmap
         jury.py · dedupe.py
     🧑‍🔧 Personas
       maria
-        9 references
+        10 references
       taytay
         8 references · inspector
       im5
@@ -825,7 +825,7 @@ The playbook is wired to a specific manuscript layout: a `manuscript/` target di
 
 > **A finished manuscript plus cover art in, every file Amazon KDP needs out: print interiors, cover wraps, EPUB, editable DOCX and ODT, and a folder that tells you exactly what to upload where.**
 
-📁 `build-ebook-kdp/` · 23 files · 16 scripts · driven by one `book.json`
+📁 `build-ebook-kdp/` · 23 files · 17 scripts (16 builders + kdpcfg.py) · driven by one `book.json`
 
 #### What it does
 
@@ -859,7 +859,7 @@ Env: `KDP_BOOK=path/to/book.json` (default `book.json`), `KDP_COVER_CACHE`.
 
 #### Dependencies
 
-Python: `python-docx`, `pypdf`, `pillow`, `reportlab`, `fonttools`, `pypdfium2`. System: Chrome or Chromium, `pandoc`, `imagemagick`, `epubcheck`, and `brew install --cask calibre libreoffice` for `ebook-convert` and `soffice`. Fonts come from Google Fonts via `fonts.py`, once per project.
+Python: `python-docx`, `pypdf`, `pillow`, `reportlab`, `fonttools`, `pypdfium2`. System: Chrome or Chromium, `pandoc`, `imagemagick`, `epubcheck`, and `brew install --cask calibre libreoffice` for `ebook-convert` and `soffice`. Fonts come from Google Fonts via `fonts.py`, once per project. Shared config and KDP geometry for every script above live in `kdpcfg.py`.
 
 #### What it leaves behind
 
@@ -1302,6 +1302,7 @@ sequenceDiagram
 | Error, slow, general, and binary logs, Performance Schema | `logging-observability.md` |
 | Replication, Galera, sharding, durability, backups, recovery | `architecture-recovery.md` |
 | Read-only queries for version, settings, metrics, workload | `diagnostics.sql` |
+| Research and source map behind every claim in the guides above | `sources.md` |
 
 #### How to use it
 
