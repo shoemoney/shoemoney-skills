@@ -11,12 +11,13 @@ Past failure to never repeat: this skill was invoked five times on 2026-09-09 an
 
 ## Fixed facts
 
+- `BOOK_DIR`: manuscript base directory, default `~/Projects/aibook`
 - Book: **AiBook: A Human Survival Guide for When the AI Steals Your Girlfriend, Becomes Your Dog's Best Friend, and Has Your Wi-Fi Password (password1)** (Jeremy "ShoeMoney" Schoemaker)
-- Manuscript dir: `/Users/shoemoney/Projects/aibook/manuscript/`
+- Manuscript dir: `<BOOK_DIR>/manuscript/`
 - Spine (titles + one-liners): `manuscript/00-SPINE.md`
 - Jeremy's raw riffs per chapter: `manuscript/CHAPTER-BRIEFS.md`
 - Voice samples (read these, imitate these): `01-How_We_Got_Here.md`, `02-Yeah_Its_a_Bubble.md`, `07-Tiny_Model_Moat.md`, `14-Ralph_Dont_You_Dare_Stop.md`
-- Production story sources (local, free, dated): `/Users/shoemoney/Projects/airank/blog/*.md` (airank incident posts, one per day, real outcomes), `/Users/shoemoney/Projects/commander-in-chief/` (Godot 4.7 game, deterministic sim/view, test-first)
+- Production story sources (example local sources; substitute your own dated incident posts): `~/Projects/airank/blog/*.md` (airank incident posts, one per day, real outcomes), `~/Projects/commander-in-chief/` (Godot 4.7 game, deterministic sim/view, test-first)
 - Web research: **SearXNG only** — `mcp__searxng__searxng_web_search` then `mcp__searxng__web_url_read`. Never `WebSearch`. Say this verbatim in every research prompt.
 - Model routing (hard rule from global CLAUDE.md): research = `haiku`, writing = `opus`, cite-check = `haiku`.
 - No AI attribution anywhere in the output. Ever.
@@ -67,7 +68,7 @@ If ARGUMENTS is empty: ask which chapters, stop.
 ## Step 2 — Resolve the target file for each chapter (bash, one call)
 
 ```bash
-cd /Users/shoemoney/Projects/aibook/manuscript && for n in <CHAPTERS zero-padded>; do wc -w ${n}-*.md 2>/dev/null; done
+cd $BOOK_DIR/manuscript && for n in <CHAPTERS zero-padded>; do wc -w ${n}-*.md 2>/dev/null; done
 ```
 
 Rules:
@@ -140,14 +141,14 @@ const results = await pipeline(
     'CHAPTER ' + ch.n + ': ' + ch.title + '\nSPINE: ' + ch.spine + '\nJEREMY BRIEF: ' + ch.brief + '\nDIRECTION: ' + ch.direction + '\n\n' +
     'Tasks:\n' +
     '1. Find 5-10 checkable receipts (dates, numbers, named incidents, papers, vendor announcements) that support or sharpen this chapter. Each MUST have outlet, date (month+year minimum), and a URL you actually opened. confidence = "verified" only if you opened the page and saw the claim; otherwise "unverified".\n' +
-    '2. Find 2-3 real stories. FIRST grep the local airank blog at /Users/shoemoney/Projects/airank/blog/ (dated incident posts — read the ones whose titles match the theme; cite the file path). Also consider /Users/shoemoney/Projects/commander-in-chief/ (Godot game, test-first, deterministic sim). THEN public documented incidents via SearXNG.\n' +
+    '2. Find 2-3 real stories. FIRST grep the local airank blog at ~/Projects/airank/blog/ (dated incident posts — read the ones whose titles match the theme; cite the file path). Also consider ~/Projects/commander-in-chief/ (Godot game, test-first, deterministic sim). THEN public documented incidents via SearXNG.\n' +
     '3. Find 2-3 candidate EPIGRAPHS: real, attributed quotes that are funny, on-topic, and teach something (engineers, comedians, scientists, old programmers, Jeremy himself). Open the source page and confirm the wording and attribution. Add each as a receipt with claim starting "EPIGRAPH:" and the exact wording in quote. No Einstein/Twain/Franklin misattributions; if you cannot confirm who said it, drop it.\n' +
     '4. List gaps: anything the chapter needs that you could not verify. Do not guess. Do not invent. An empty list beats a fake URL.\n' +
     'Return only the structured object.',
     { label: 'research:ch' + ch.n, phase: 'Research', model: 'haiku', schema: RESEARCH }
   ),
   (research, ch) => agent(
-    'You are ghostwriting a chapter of AiBook for Jeremy "ShoeMoney" Schoemaker. Write it AS HIM. First read these voice samples in full: /Users/shoemoney/Projects/aibook/manuscript/01-How_We_Got_Here.md, 02-Yeah_Its_a_Bubble.md, 07-Tiny_Model_Moat.md. Match that register exactly: bottom line first, sarcastic, technical, contrarian, short paragraphs, scars visible.\n\n' +
+    'You are ghostwriting a chapter of AiBook for Jeremy "ShoeMoney" Schoemaker. Write it AS HIM. First read these voice samples in full: <BOOK_DIR>/manuscript/01-How_We_Got_Here.md, 02-Yeah_Its_a_Bubble.md, 07-Tiny_Model_Moat.md. Match that register exactly: bottom line first, sarcastic, technical, contrarian, short paragraphs, scars visible.\n\n' +
     'CHAPTER ' + ch.n + ': ' + ch.title + '\nSPINE: ' + ch.spine + '\nJEREMY BRIEF (his words — his opinions come from here, not from you): ' + ch.brief + '\nDIRECTION: ' + ch.direction + '\n\n' +
     'EXISTING FILE (may be a skeleton; keep anything real, replace [RECEIPT NEEDED: brief ...] template placeholders):\n' + ch.existing + '\n\n' +
     'RESEARCH (use ONLY these receipts and stories for dates/numbers/incidents; anything not here gets [RECEIPT NEEDED: ...]):\n' + JSON.stringify(research) + '\n\n' +
@@ -200,7 +201,7 @@ The workflow returns `[{n, target, unsupported, patched}]`. If any chapter retur
 ## Step 6 — PROVE IT (mandatory, in your reply)
 
 ```bash
-cd /Users/shoemoney/Projects/aibook/manuscript && ls -la <targets> && wc -w <targets> && grep -c "RECEIPT NEEDED" <targets> && grep -c "—" <targets>
+cd $BOOK_DIR/manuscript && ls -la <targets> && wc -w <targets> && grep -c "RECEIPT NEEDED" <targets> && grep -c "—" <targets>
 ```
 
 Success per chapter = mtime is after the Workflow started AND words ≥ 1200 AND the file starts with `# ` AND em-dash count is 0. Anything else is a failure. Say so. If em dashes remain, run the Unslop agent prompt from Step 3 on that file directly via the Agent tool (model sonnet) and re-check.
