@@ -225,7 +225,7 @@ scopecreep/                          "queue it, don't chase it"
 │   ├── ## Notes worth keeping
 │   └── ## Measured and deliberately dropped   (with the number that settled it)
 ├── one-line reply, then back to the task
-└── optional Stop hook: scopecreep-check.sh surfaces ready items, max once per 2h
+└── hooks/scopecreep-check.sh   optional Stop hook, surfaces ready items, max once per 2h
 
 autoresearch/                        "modify → verify → keep or discard, unattended"
 ├── modes
@@ -639,7 +639,7 @@ flowchart LR
 
 > **Capture an idea raised mid-task without acting on it. One line back, then straight back to work.**
 
-📁 `scopecreep/` · 1 file · optional Stop hook
+📁 `scopecreep/` · 2 files · SKILL.md + optional Stop hook
 
 #### What it does
 
@@ -658,7 +658,7 @@ Appends the idea to `QUEUE.md` in the project (or `~/.claude/QUEUE.md` outside a
 - 🛑 **Never starts the work.** Not even "it's only a one-liner". The queue exists because one-liners eat sessions.
 - 🤐 **One line back.** No queue summary, no clarifying questions, no "while I'm here".
 - 📉 **A queue that only grows becomes noise.** Settled items move to `## Measured and deliberately dropped` *with the number that settled them*, so nobody relitigates without new data.
-- 🔔 Optional `scopecreep-check.sh` Stop hook surfaces ready items, throttled to once per two hours.
+- 🔔 Optional Stop hook ships in `scopecreep/hooks/scopecreep-check.sh`: surfaces ready items, throttled to once per two hours, always exits 0. Wiring snippet is in the skill's `SKILL.md`.
 
 ---
 

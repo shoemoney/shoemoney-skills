@@ -84,7 +84,25 @@ When the user asks "what's queued", "what did we defer", or "did you ever do X":
 
 ## Optional: surface it automatically
 
-`~/.claude/hooks/scopecreep-check.sh` is a Stop hook that surfaces the queue when it has ready
-items — throttled so it speaks at most once every two hours per session and stays silent when
-the queue is empty. Wire it in `~/.claude/settings.json` under `Stop`. It is deliberately quiet:
-a nagging queue gets ignored, which defeats the point.
+`hooks/scopecreep-check.sh` (shipped next to this file) is a Stop hook that surfaces the queue
+when it has ready items — throttled so it speaks at most once every two hours per session and
+stays silent when the queue is empty. It is deliberately quiet: a nagging queue gets ignored,
+which defeats the point.
+
+Wire it in `~/.claude/settings.json` under `Stop`, pointing at wherever you installed the skill:
+
+```json
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "bash ~/.claude/skills/scopecreep/hooks/scopecreep-check.sh", "timeout": 5 }
+        ]
+      }
+    ]
+  }
+}
+```
+
+It exits 0 no matter what, so it can never block a session.
