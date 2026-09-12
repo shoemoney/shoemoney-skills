@@ -422,6 +422,14 @@ Symlinks mean `git pull` updates every installed skill in place.
 git clone https://github.com/shoemoney/shoemoney-skills.git ~/Projects/shoemoney-skills
 # or from the Forgejo mirror: git clone https://git.shoemoney.ai/shoemoney/shoemoney-skills.git ~/Projects/shoemoney-skills
 
+cd ~/Projects/shoemoney-skills
+./install.sh scopecreep im5    # or name the ones you want
+./install.sh --all             # or install every skill
+```
+
+By hand, without the script:
+
+```bash
 mkdir -p ~/.claude/skills
 for s in $(ls -d */ | tr -d /); do   # or name the ones you want
   ln -sfn ~/Projects/shoemoney-skills/$s ~/.claude/skills/$s
@@ -432,7 +440,9 @@ done
 
 ```bash
 git clone https://github.com/shoemoney/shoemoney-skills.git ~/Projects/shoemoney-skills
-ln -sfn ~/Projects/shoemoney-skills/* ~/.claude/skills/
+cd ~/Projects/shoemoney-skills
+./install.sh --all
+# or, by hand: ln -sfn ~/Projects/shoemoney-skills/*/ ~/.claude/skills/
 ```
 
 ### Option C — just one skill, copied, project-local
@@ -1580,7 +1590,7 @@ mindmap
 ```mermaid
 flowchart LR
     A[✅ seed the vault] --> B[✅ README] --> B2[✅ second wave: 19 skills] --> B3[✅ publish-skills-repo: 20]
-    B3 --> C[🔨 install script]
+    B3 --> C[✅ install script]
     C --> D[⬜ smoke tests per script]
     D --> E[⬜ more originals as they earn it]
 ```
@@ -1589,7 +1599,7 @@ flowchart LR
 |---|---|
 | ✅ | Twenty skills in their own folders, pushed |
 | ✅ | This README |
-| 🔨 | `install.sh` that does Option A for you |
+| ✅ | `install.sh` that does Option A for you |
 | ⬜ | CI: run `test_verify_shots_freshness.py` and a `--dry-run` of `jury.py` / `council.py` |
 | ✅ | Vendor `or_call.py` so `tripple-a-gamedev` no longer depends on an external skill |
 | ✅ | Second wave: session tools, the KDP book pipeline, Maria and Taytay, walk-the-funnel, going-public-audit |
