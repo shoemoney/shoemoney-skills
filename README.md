@@ -815,7 +815,7 @@ hook
 <details>
 <summary>⚙️ Paths it expects (project-specific, edit for your book)</summary>
 
-The playbook is wired to a specific manuscript layout: a `manuscript/` target dir, `00-SPINE.md` for chapter titles, `CHAPTER-BRIEFS.md` for per-chapter briefs, and four voice-sample chapters it imitates. To reuse for another book, change those paths in `SKILL.md` and give it your own voice samples.
+The playbook is wired to a specific manuscript layout under one `BOOK_DIR` (default `~/Projects/aibook`): a `manuscript/` target dir, `00-SPINE.md` for chapter titles, `CHAPTER-BRIEFS.md` for per-chapter briefs, and four voice-sample chapters it imitates. To reuse for another book, point `BOOK_DIR` at your manuscript and give it your own voice samples.
 
 </details>
 
