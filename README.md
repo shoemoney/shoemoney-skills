@@ -17,6 +17,7 @@
 [![python](https://img.shields.io/badge/python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](#-prerequisites)
 [![node](https://img.shields.io/badge/node-20%2B-339933?style=for-the-badge&logo=node.js&logoColor=white)](#-prerequisites)
 [![platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux-lightgrey?style=for-the-badge&logo=apple)](#-cross-platform)
+[![smoke](https://github.com/shoemoney/shoemoney-skills/actions/workflows/smoke.yml/badge.svg)](https://github.com/shoemoney/shoemoney-skills/actions/workflows/smoke.yml)
 [![github](https://img.shields.io/badge/GitHub-shoemoney%2Fshoemoney--skills-181717?style=for-the-badge&logo=github)](https://github.com/shoemoney/shoemoney-skills) [![mirror](https://img.shields.io/badge/mirror-Forgejo-orange?style=for-the-badge&logo=forgejo&logoColor=white)](https://git.shoemoney.ai/shoemoney/shoemoney-skills)
 
 *Ghostwrite a book and ship it to KDP. Reset your context without losing a thing. Make a game look AAA. Turn the flare to 11. Convene a jury. Summon the council. Ask Maria about your indexes. Explain it to a five-year-old.*
