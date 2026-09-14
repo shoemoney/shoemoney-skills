@@ -68,6 +68,19 @@ sed -n '/^description/,/^---/p' <skill-dir>/SKILL.md   # READ IT: a blanket sed 
                                                         # spellings collapse to one
 ```
 
+**The same self-path inside a TEST is worse: the test passes for the wrong reason.** Confirmed
+2026-09-12: `test_verify_shots_freshness.py` in the public vault ran its subject via
+`os.path.expanduser("~/.claude/skills/tripple-a-gamedev/scripts/verify_shots.py")`. Locally the
+installed copy is there, so the vault's test was green while exercising a file outside the repo;
+on CI (`ubuntu-latest`) it failed with *can't open file '/home/runner/.claude/skills/...'*. Tell:
+a test in a repo that is green locally, red in CI with "No such file" on a path under `$HOME`,
+or a test that stays green after you break the repo copy. Fix: resolve the subject beside the
+test, `os.path.join(os.path.dirname(os.path.abspath(__file__)), "verify_shots.py")`. Check:
+`mv` the repo copy away, run the test, it must FAIL; put it back. Runtime *defaults* in a
+Workflow script (`A.script || '~/.claude/skills/<name>/scripts/x.py'`) can stay — the installer
+symlinks to exactly that path and the caller can override — but a test may never resolve its
+subject through the install path.
+
 Also fix the install: the `~/.claude/skills/<name>` entry is usually a symlink to
 `~/.agents/skills/<name>`, so `mv` the target, `rm` the old link, `ln -s` the new one. The
 frontmatter `name:` must equal the folder name or the skill vanishes from the list.

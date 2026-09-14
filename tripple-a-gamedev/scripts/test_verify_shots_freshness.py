@@ -3,7 +3,7 @@ import os, subprocess, sys, tempfile, json
 from PIL import Image
 import random
 
-VS = os.path.expanduser("~/.claude/skills/tripple-a-gamedev/scripts/verify_shots.py")
+VS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "verify_shots.py")  # the copy next to this test, never the installed one
 
 def make_shots(d, n=4):
     """Real, distinct, colourful, MOVING frames - passes checks 1-4 by construction."""
