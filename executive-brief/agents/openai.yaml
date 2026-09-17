@@ -1,0 +1,4 @@
+interface:
+  display_name: "Executive Brief"
+  short_description: "Versioned executive reports with charts and history"
+  default_prompt: "Use $executive-brief to create or update this project’s executive briefing, preserving every prior edition."

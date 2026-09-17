@@ -127,4 +127,10 @@ check_bash_syntax
 check_portability
 check_shots_freshness
 
+if python3 -m unittest discover -s executive-brief/scripts -p 'test_*.py'; then
+    pass "(f) executive briefing history and change guard"
+else
+    fail "(f) executive briefing history and change guard"
+fi
+
 exit "$OVERALL"

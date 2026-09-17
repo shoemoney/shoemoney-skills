@@ -10,9 +10,9 @@
 
 # 🧠 shoemoney-skills
 
-**The keeper vault.** Twenty original, battle-tested Claude Code skills — the ones that earned a permanent home.
+**The keeper vault.** Twenty-one original, battle-tested Claude Code skills — the ones that earned a permanent home.
 
-[![skills](https://img.shields.io/badge/skills-20-blueviolet?style=for-the-badge&logo=anthropic)](#-the-skills)
+[![skills](https://img.shields.io/badge/skills-21-blueviolet?style=for-the-badge&logo=anthropic)](#-the-skills)
 [![status](https://img.shields.io/badge/status-production--used-success?style=for-the-badge)](#-the-skills)
 [![python](https://img.shields.io/badge/python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](#-prerequisites)
 [![node](https://img.shields.io/badge/node-20%2B-339933?style=for-the-badge&logo=node.js&logoColor=white)](#-prerequisites)
@@ -68,9 +68,9 @@
 
 A **Claude Code skill** is a folder with a `SKILL.md` in it. Claude reads the frontmatter to decide *when* to use it, then follows the body as a playbook. Add scripts, and the skill can shell out to real tools instead of guessing.
 
-This repo is the curated cut: **twenty skills that get used for real work every week**, not a dump of everything ever written. Each one lives in its own folder and can be installed on its own.
+This repo is the curated cut: **twenty-one skills that get used for real work every week**, not a dump of everything ever written. Each one lives in its own folder and can be installed on its own.
 
-| 🔥 Why these twenty | |
+| 🔥 Why these twenty-one | |
 |---|---|
 | **They're original** | Written from scratch for this workflow, not forked from a marketplace. |
 | **They're measured** | Each `SKILL.md` carries the scars: wall-clock timings, failure counts, what broke and why. |
@@ -1634,3 +1634,9 @@ MIT. Take what's useful. The scars are free.
 *If a skill in here lied to you, the fix is a PR to `SKILL.md`, not a note in your head.*
 
 </div>
+
+## Executive Brief
+
+[`executive-brief`](executive-brief/SKILL.md) creates interactive executive reports with software and infrastructure inventories, architecture exploration, ECharts comparisons, cost controls, acceptance evidence, and an additive history. Every v+1 edition preserves prior content and evidence.
+
+Install for Codex: `bash install.sh --target ~/.codex/skills executive-brief`. The folder includes a reusable HTML/CSS/JS template, a portable immutable snapshot/verification tool, ten behavior tests, a SiteRedo adapter for its existing publisher, and an optional project-opted-in Stop hook. Python 3.11+ and Git are required; the template uses pinned ECharts from a CDN (vendor it for offline use). See [hook setup and limitations](executive-brief/references/hooks.md). The hook requests a briefing review; it does not autonomously deploy or launch another agent.
