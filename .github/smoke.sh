@@ -133,4 +133,10 @@ else
     fail "(f) executive briefing history and change guard"
 fi
 
+if python3 lfsm/scripts/test_read_book.py; then
+    pass "(g) LFSM update checks, preserved snapshots, and bounded retrieval"
+else
+    fail "(g) LFSM update checks, preserved snapshots, and bounded retrieval"
+fi
+
 exit "$OVERALL"

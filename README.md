@@ -10,9 +10,9 @@
 
 # 🧠 shoemoney-skills
 
-**The keeper vault.** Twenty-one original, battle-tested Claude Code skills — the ones that earned a permanent home.
+**The keeper vault.** Twenty-two skills for Claude Code and compatible agents, including LFSM — Learn From ShoeMoney.
 
-[![skills](https://img.shields.io/badge/skills-21-blueviolet?style=for-the-badge&logo=anthropic)](#-the-skills)
+[![skills](https://img.shields.io/badge/skills-22-blueviolet?style=for-the-badge&logo=anthropic)](#-the-skills)
 [![status](https://img.shields.io/badge/status-production--used-success?style=for-the-badge)](#-the-skills)
 [![python](https://img.shields.io/badge/python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](#-prerequisites)
 [![node](https://img.shields.io/badge/node-20%2B-339933?style=for-the-badge&logo=node.js&logoColor=white)](#-prerequisites)
@@ -23,6 +23,14 @@
 *Ghostwrite a book and ship it to KDP. Reset your context without losing a thing. Make a game look AAA. Turn the flare to 11. Convene a jury. Summon the council. Ask Maria about your indexes. Explain it to a five-year-old.*
 
 </div>
+
+## LFSM — Learn From ShoeMoney
+
+Give your agent the [LFSM infographic](lfsm/assets/lfsm-infographic.png) and say: **“Read this image, follow its LFSM install-guide link, and install the skill for this agent.”** Or send it the [agent installation guide](lfsm/INSTALL.md) directly.
+
+[LFSM](lfsm/README.md) includes 22 source-linked failure notes. It searches the 140k+ word book for task-related keyphrases, retrieves precise context, checks your current work, applies authorized fixes, and verifies the outcome. It checks for book updates on each invocation and reuses unchanged cached content. The full PDF is extracted locally; only relevant passages enter model context.
+
+Install just LFSM after checking for an existing customized installation: `bash install.sh --target ~/.codex/skills lfsm` for Codex, or `bash install.sh --target ~/.claude/skills lfsm` for Claude Code. Follow the [guide](lfsm/INSTALL.md) for the Python reader dependency and verification. Use `$lfsm` in Codex or `/lfsm` in Claude Code.
 
 ---
 
@@ -68,9 +76,9 @@
 
 A **Claude Code skill** is a folder with a `SKILL.md` in it. Claude reads the frontmatter to decide *when* to use it, then follows the body as a playbook. Add scripts, and the skill can shell out to real tools instead of guessing.
 
-This repo is the curated cut: **twenty-one skills that get used for real work every week**, not a dump of everything ever written. Each one lives in its own folder and can be installed on its own.
+This repo is the curated cut: **twenty-two reusable skills**, not a dump of everything ever written. Each one lives in its own folder and can be installed on its own.
 
-| 🔥 Why these twenty-one | |
+| 🔥 Why these skills | |
 |---|---|
 | **They're original** | Written from scratch for this workflow, not forked from a marketplace. |
 | **They're measured** | Each `SKILL.md` carries the scars: wall-clock timings, failure counts, what broke and why. |
